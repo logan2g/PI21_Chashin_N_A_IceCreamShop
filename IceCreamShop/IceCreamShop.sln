@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopContracts", "IceCreamShopContracts\IceCreamShopContracts.csproj", "{1A622CA2-C6E5-45F9-B6F4-24998CCEF1B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopBusinessLogic", "IceCreamShopBusinessLogic\IceCreamShopBusinessLogic.csproj", "{3913E3EC-603D-49DC-9801-7584AF68A8DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopListImplement", "IceCreamShopListImplement\IceCreamShopListImplement.csproj", "{25E4F72D-626A-4810-AF6A-6F772E264EE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopView", "IceCreamShopView\IceCreamShopView.csproj", "{78B61F91-8875-4565-A288-7CDBA01F13DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A622CA2-C6E5-45F9-B6F4-24998CCEF1B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A622CA2-C6E5-45F9-B6F4-24998CCEF1B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A622CA2-C6E5-45F9-B6F4-24998CCEF1B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A622CA2-C6E5-45F9-B6F4-24998CCEF1B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3913E3EC-603D-49DC-9801-7584AF68A8DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3913E3EC-603D-49DC-9801-7584AF68A8DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3913E3EC-603D-49DC-9801-7584AF68A8DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3913E3EC-603D-49DC-9801-7584AF68A8DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25E4F72D-626A-4810-AF6A-6F772E264EE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25E4F72D-626A-4810-AF6A-6F772E264EE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25E4F72D-626A-4810-AF6A-6F772E264EE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25E4F72D-626A-4810-AF6A-6F772E264EE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78B61F91-8875-4565-A288-7CDBA01F13DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78B61F91-8875-4565-A288-7CDBA01F13DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78B61F91-8875-4565-A288-7CDBA01F13DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78B61F91-8875-4565-A288-7CDBA01F13DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
