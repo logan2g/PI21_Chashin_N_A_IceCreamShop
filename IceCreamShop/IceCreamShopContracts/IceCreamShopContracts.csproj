@@ -45,6 +45,7 @@
     <Compile Include="BindingModels\CreateOrderBindingModel.cs" />
     <Compile Include="BindingModels\IceCreamBindingModel.cs" />
     <Compile Include="BindingModels\OrderBindingModel.cs" />
+    <Compile Include="BindingModels\WarehouseBindingModel.cs" />
     <Compile Include="BusinessLogicsContracts\IComponentLogic.cs" />
     <Compile Include="BusinessLogicsContracts\IIceCreamLogic.cs" />
     <Compile Include="BusinessLogicsContracts\IOrderLogic.cs" />
