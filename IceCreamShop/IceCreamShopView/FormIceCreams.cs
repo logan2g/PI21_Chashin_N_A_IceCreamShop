@@ -49,7 +49,7 @@ namespace IceCreamShopView
             }
         }
 
-        private void ButtonUpd_Click(object sender, EventArgs e)
+        private void ButtonRef_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
@@ -83,7 +83,7 @@ namespace IceCreamShopView
             }
         }
 
-        private void ButtonRef_Click(object sender, EventArgs e)
+        private void ButtonUpd_Click(object sender, EventArgs e)
         {
             LoadData();
         }

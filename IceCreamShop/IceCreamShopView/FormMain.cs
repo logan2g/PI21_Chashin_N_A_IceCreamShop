@@ -47,7 +47,7 @@ namespace IceCreamShopView
 
         private void МороженыеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Program.Container.Resolve<FormIceCream>();
+            var form = Program.Container.Resolve<FormIceCreams>();
             form.ShowDialog();
         }
 
