@@ -49,14 +49,17 @@
     <Compile Include="BusinessLogicsContracts\IComponentLogic.cs" />
     <Compile Include="BusinessLogicsContracts\IIceCreamLogic.cs" />
     <Compile Include="BusinessLogicsContracts\IOrderLogic.cs" />
+    <Compile Include="BusinessLogicsContracts\IWarehouseLogic.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoragesContracts\IComponentStorage.cs" />
     <Compile Include="StoragesContracts\IOrderStorage.cs" />
     <Compile Include="StoragesContracts\IIceCreamStorage.cs" />
+    <Compile Include="StoragesContracts\IWarehouseStorage.cs" />
     <Compile Include="ViewModels\ComponentViewModel.cs" />
     <Compile Include="ViewModels\IceCreamViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\WarehouseViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
