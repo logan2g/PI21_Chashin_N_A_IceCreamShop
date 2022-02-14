@@ -86,7 +86,7 @@ namespace IceCreamShopFileImplement.Implements
         {
             string ResultSnackName = (from iceCream in source.IceCreams
                       where order.IceCreamId == iceCream.Id
-                      select iceCream.IceCreamName).ToString();
+                      select iceCream.IceCreamName).First();
             return new OrderViewModel
             {
                 Id = order.Id,
