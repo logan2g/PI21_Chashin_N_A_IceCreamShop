@@ -131,15 +131,15 @@ namespace IceCreamShopListImplement.Implements
         private WarehouseViewModel CreateModel(Warehouse wh)
         {
             // требуется дополнительно получить список компонентов для изделия с названиями и их количество
-            Dictionary<int, (string, int)> warehouseComponents = new Dictionary<int, (string, int)>();
+            var warehouseComponents = new Dictionary<int, (string, int)>();
             foreach (var whComponents in wh.WarehouseComponents)
             {
                 string wComponentsName = string.Empty;
-                foreach (var warehouse in source.Warehouses)
+                foreach (var component in source.Components)
                 {
-                    if (whComponents.Key == warehouse.Id)
+                    if (whComponents.Key == component.Id)
                     {
-                        wComponentsName = warehouse.WarehouseName;
+                        wComponentsName = component.ComponentName;
                         break;
                     }
                 }
