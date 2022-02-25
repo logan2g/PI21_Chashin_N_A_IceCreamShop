@@ -62,8 +62,20 @@ namespace IceCreamShopDatabaseImplement.Implements
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                context.IceCreams.Add(CreateModel(model, new IceCream(), context));
+                IceCream icecream_to_add = CreateModel(model, new IceCream(), context);
+                context.IceCreams.Add(icecream_to_add);
                 context.SaveChanges();
+
+                foreach (var pc in model.IceCreamComponents)
+                {
+                    context.IceCreamComponents.Add(new IceCreamComponent
+                    {
+                        IceCreamId = icecream_to_add.Id,
+                        ComponentId = pc.Key,
+                        Count = pc.Value.Item2
+                    });
+                    context.SaveChanges();
+                }
 
                 transaction.Commit();
             }
@@ -112,48 +124,47 @@ namespace IceCreamShopDatabaseImplement.Implements
             }
         }
 
-        private static IceCream CreateModel(IceCreamBindingModel model, IceCream product, IceCreamShopDatabase context)
+        private static IceCream CreateModel(IceCreamBindingModel model, IceCream icecream, IceCreamShopDatabase context)
         {
-            product.IceCreamName = model.IceCreamName;
-            product.Price = model.Price;
+            icecream.IceCreamName = model.IceCreamName;
+            icecream.Price = model.Price;
 
             if (model.Id.HasValue)
             {
-                var productComponents = context.IceCreamComponents.Where(rec => rec.IceCreamId == model.Id.Value).ToList();
+                var icecreamComponents = context.IceCreamComponents.Where(rec => rec.IceCreamId == model.Id.Value).ToList();
                 // удалили те, которых нет в модели 
-                context.IceCreamComponents.RemoveRange(productComponents.Where(rec => !model.IceCreamComponents.ContainsKey(rec.ComponentId)).ToList());
+                context.IceCreamComponents.RemoveRange(icecreamComponents.Where(rec => !model.IceCreamComponents.ContainsKey(rec.ComponentId)).ToList());
                 context.SaveChanges();
                 // обновили количество у существующих записей 
-                foreach (var updateComponent in productComponents)
+                foreach (var updateComponent in icecreamComponents)
                 {
                     updateComponent.Count = model.IceCreamComponents[updateComponent.ComponentId].Item2;
                     model.IceCreamComponents.Remove(updateComponent.ComponentId);
                 }
                 context.SaveChanges();
-            }
-            // добавили новые 
-            foreach (var pc in model.IceCreamComponents)
-            {
-                context.IceCreamComponents.Add(new IceCreamComponent
+                // добавили новые 
+                foreach (var pc in model.IceCreamComponents)
                 {
-                    IceCreamId = product.Id,
-                    ComponentId = pc.Key,
-                    Count = pc.Value.Item2
-                });
-                context.SaveChanges();
+                    context.IceCreamComponents.Add(new IceCreamComponent
+                    {
+                        IceCreamId = icecream.Id,
+                        ComponentId = pc.Key,
+                        Count = pc.Value.Item2
+                    });
+                    context.SaveChanges();
+                }
             }
-
-            return product;
+            return icecream;
         }
 
-        private static IceCreamViewModel CreateModel(IceCream product)
+        private static IceCreamViewModel CreateModel(IceCream icecream)
         {
             return new IceCreamViewModel
             {
-                Id = product.Id,
-                IceCreamName = product.IceCreamName,
-                Price = product.Price,
-                IceCreamComponents = product.IceCreamComponents
+                Id = icecream.Id,
+                IceCreamName = icecream.IceCreamName,
+                Price = icecream.Price,
+                IceCreamComponents = icecream.IceCreamComponents
                     .ToDictionary(recPC => recPC.ComponentId, recPC => (recPC.Component?.ComponentName, recPC.Count))
             };
         }
