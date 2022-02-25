@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopContracts", "IceCreamShopContracts\IceCreamShopContracts.csproj", "{1A622CA2-C6E5-45F9-B6F4-24998CCEF1B6}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopListImplement", "IceCreamShopListImplement\IceCreamShopListImplement.csproj", "{25E4F72D-626A-4810-AF6A-6F772E264EE4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopView", "IceCreamShopView\IceCreamShopView.csproj", "{78B61F91-8875-4565-A288-7CDBA01F13DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopFileImplement", "IceCreamShopFileImplement\IceCreamShopFileImplement.csproj", "{3BBD6741-EFED-41C9-BE3C-81DDBDB11608}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +35,15 @@ Global
 		{78B61F91-8875-4565-A288-7CDBA01F13DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78B61F91-8875-4565-A288-7CDBA01F13DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78B61F91-8875-4565-A288-7CDBA01F13DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BBD6741-EFED-41C9-BE3C-81DDBDB11608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BBD6741-EFED-41C9-BE3C-81DDBDB11608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BBD6741-EFED-41C9-BE3C-81DDBDB11608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BBD6741-EFED-41C9-BE3C-81DDBDB11608}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5028BF0-EA75-4584-9936-3A26B81017DD}
 	EndGlobalSection
 EndGlobal

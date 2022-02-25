@@ -33,7 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
@@ -180,6 +182,10 @@
     <ProjectReference Include="..\IceCreamShopContracts\IceCreamShopContracts.csproj">
       <Project>{1a622ca2-c6e5-45f9-b6f4-24998ccef1b6}</Project>
       <Name>IceCreamShopContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IceCreamShopFileImplement\IceCreamShopFileImplement.csproj">
+      <Project>{3bbd6741-efed-41c9-be3c-81ddbdb11608}</Project>
+      <Name>IceCreamShopFileImplement</Name>
     </ProjectReference>
     <ProjectReference Include="..\IceCreamShopListImplement\IceCreamShopListImplement.csproj">
       <Project>{25e4f72d-626a-4810-af6a-6f772e264ee4}</Project>
