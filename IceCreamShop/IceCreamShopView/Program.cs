@@ -24,6 +24,7 @@ namespace IceCreamShopView
                 return container;
             }
         }
+
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>

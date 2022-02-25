@@ -12,7 +12,7 @@ namespace IceCreamShopContracts.ViewModels
         public string WarehouseName { get; set; }
 
         [DisplayName("ФИО ответственного")]
-        public string ResposiblePerson { get; set; }
+        public string ResponsiblePerson { get; set; }
 
         [DisplayName("Дата создания склада")]
         public DateTime CreateDate { get; set; }

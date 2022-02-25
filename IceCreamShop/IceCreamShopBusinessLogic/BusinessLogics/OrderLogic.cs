@@ -12,9 +12,15 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
     {
         private readonly IOrderStorage _orderStorage;
 
-        public OrderLogic(IOrderStorage orderStorage)
+        private readonly IWarehouseStorage _warehouseStorage;
+
+        private readonly IIceCreamStorage _iceCreamStorage;
+
+        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage, IIceCreamStorage iceCreamStorage)
         {
             _orderStorage = orderStorage;
+            _warehouseStorage = warehouseStorage;
+            _iceCreamStorage = iceCreamStorage;
         }
 
         public List<OrderViewModel> Read(OrderBindingModel model)
@@ -55,6 +61,11 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
             if (order.Status != OrderStatus.Принят)
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
+            }
+            if (!_warehouseStorage.TakeFromWarehouse(_iceCreamStorage.GetElement
+              (new IceCreamBindingModel { Id = order.IceCreamId }).IceCreamComponents, order.Count))
+            {
+                throw new Exception("Недостаточно компонентов на складах");
             }
             _orderStorage.Update(new OrderBindingModel
             {

@@ -18,17 +18,22 @@ namespace IceCreamShopFileImplement
 
         private readonly string IceCreamFileName = "IceCream.xml";
 
+        private readonly string WarehouseFileName = "Warehouse.xml";
+
         public List<Component> Components { get; set; }
 
         public List<Order> Orders { get; set; }
 
         public List<IceCream> IceCreams { get; set; }
 
+        public List<Warehouse> Warehouses { get; set; }
+
         private FileDataSingleton()
         {
             Components = LoadComponents();
             Orders = LoadOrders();
             IceCreams = LoadIceCreams();
+            Warehouses = LoadWarehouses();
         }
 
         ~FileDataSingleton()
@@ -36,6 +41,7 @@ namespace IceCreamShopFileImplement
             SaveComponents();
             SaveOrders();
             SaveIceCreams();
+            SaveWarehouses();
         }
 
         public static FileDataSingleton GetInstance()
@@ -116,6 +122,33 @@ namespace IceCreamShopFileImplement
             return list;
         }
 
+        private List<Warehouse> LoadWarehouses()
+        {
+            var list = new List<Warehouse>();
+            if (File.Exists(WarehouseFileName))
+            {
+                XDocument xDocument = XDocument.Load(WarehouseFileName);
+                var xElements = xDocument.Root.Elements("Warehouse").ToList();
+                foreach (var elem in xElements)
+                {
+                    var whComp = new Dictionary<int, int>();
+                    foreach (var component in elem.Element("WarehouseComponents").Elements("WarehouseComponent").ToList())
+                    {
+                        whComp.Add(Convert.ToInt32(component.Element("Key").Value), Convert.ToInt32(component.Element("Value").Value));
+                    }
+                    list.Add(new Warehouse
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        WarehouseName = elem.Element("WarehouseName").Value,
+                        ResponsiblePerson = elem.Element("ResponsiblePerson").Value,
+                        CreateDate = Convert.ToDateTime(elem.Element("CreateDate").Value),
+                        WarehouseComponents = whComp
+                    });
+                }
+            }
+            return list;
+        }
+
         private void SaveComponents()
         {
             if (Components != null)
@@ -175,6 +208,32 @@ namespace IceCreamShopFileImplement
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(IceCreamFileName);
+            }
+        }
+
+        private void SaveWarehouses()
+        {
+            if (Warehouses != null)
+            {
+                var xElement = new XElement("Warehouses");
+                foreach (var warehouse in Warehouses)
+                {
+                    var compElement = new XElement("WarehouseComponents");
+                    foreach (var component in warehouse.WarehouseComponents)
+                    {
+                        compElement.Add(new XElement("WarehouseComponent",
+                        new XElement("Key", component.Key),
+                        new XElement("Value", component.Value)));
+                    }
+                    xElement.Add(new XElement("Warehouse",
+                    new XAttribute("Id", warehouse.Id),
+                    new XElement("WarehouseName", warehouse.WarehouseName),
+                    new XElement("ResponsiblePerson", warehouse.ResponsiblePerson),
+                    new XElement("CreateDate", warehouse.CreateDate),
+                    compElement));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(WarehouseFileName);
             }
         }
     }

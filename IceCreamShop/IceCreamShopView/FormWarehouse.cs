@@ -43,7 +43,7 @@ namespace IceCreamShopView
                 {
                     Id = id,
                     WarehouseName = textBoxName.Text,
-                    ResposiblePerson = textBoxResposiblePerson.Text,
+                    ResponsiblePerson = textBoxResposiblePerson.Text,
                     WarehouseComponents = new Dictionary<int, (string, int)>()
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
@@ -68,7 +68,7 @@ namespace IceCreamShopView
                     if (view != null)
                     {
                         textBoxName.Text = view.WarehouseName;
-                        textBoxResposiblePerson.Text = view.ResposiblePerson.ToString();
+                        textBoxResposiblePerson.Text = view.ResponsiblePerson.ToString();
                         WarehouseComponents = view.WarehouseComponents ?? new Dictionary<int, (string, int)>();
                         LoadData();
                     }

@@ -86,7 +86,7 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
             {
                 Id = warehouse.Id,
                 WarehouseName = warehouse.WarehouseName,
-                ResposiblePerson = warehouse.ResposiblePerson,
+                ResponsiblePerson = warehouse.ResponsiblePerson,
                 CreateDate = warehouse.CreateDate,
                 WarehouseComponents = warehouse.WarehouseComponents
             });

@@ -84,6 +84,11 @@ namespace IceCreamShopListImplement.Implements
             source.Warehouses.Add(CreateModel(model, tempWarhouse));
         }
 
+        public bool TakeFromWarehouse(Dictionary<int, (string, int)> components, int count)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(WarehouseBindingModel model)
         {
             Warehouse tempWarhouse = null;
@@ -104,7 +109,7 @@ namespace IceCreamShopListImplement.Implements
         private Warehouse CreateModel(WarehouseBindingModel model, Warehouse warehouse)
         {
             warehouse.WarehouseName = model.WarehouseName;
-            warehouse.ResposiblePerson = model.ResposiblePerson;
+            warehouse.ResponsiblePerson = model.ResponsiblePerson;
             // удаляем убранные
             foreach (var key in warehouse.WarehouseComponents.Keys.ToList())
             {
@@ -149,7 +154,7 @@ namespace IceCreamShopListImplement.Implements
             {
                 Id = wh.Id,
                 WarehouseName = wh.WarehouseName,
-                ResposiblePerson = wh.ResposiblePerson,
+                ResponsiblePerson = wh.ResponsiblePerson,
                 CreateDate = wh.CreateDate,
                 WarehouseComponents = warehouseComponents
             };
