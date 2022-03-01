@@ -122,5 +122,19 @@ namespace IceCreamShopView
         {
             LoadData();
         }
+
+        private void СкладыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormWarehouses>();
+            form.ShowDialog();
+            LoadData();
+        }
+
+        private void ПополнениеСкладовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormTopUpWarehouse>();
+            form.ShowDialog();
+            LoadData();
+        }
     }
 }
