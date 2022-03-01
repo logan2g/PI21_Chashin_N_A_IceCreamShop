@@ -40,7 +40,7 @@
             this.buttonChange = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.ColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox.SuspendLayout();
@@ -169,7 +169,7 @@
             // 
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnId,
+            this.columnKey,
             this.columnName,
             this.columnCount});
             this.dataGridView.Location = new System.Drawing.Point(9, 16);
@@ -182,11 +182,11 @@
             this.dataGridView.Size = new System.Drawing.Size(366, 193);
             this.dataGridView.TabIndex = 0;
             // 
-            // ColumnId
+            // columnKey
             // 
-            this.ColumnId.HeaderText = "Id";
-            this.ColumnId.Name = "ColumnId";
-            this.ColumnId.Visible = false;
+            this.columnKey.HeaderText = "Id";
+            this.columnKey.Name = "columnKey";
+            this.columnKey.Visible = false;
             // 
             // columnName
             // 
@@ -238,7 +238,7 @@
         private System.Windows.Forms.Button buttonChange;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnName;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnCount;
     }
