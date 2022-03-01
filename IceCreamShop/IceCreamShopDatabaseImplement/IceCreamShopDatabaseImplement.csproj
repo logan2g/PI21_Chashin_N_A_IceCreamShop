@@ -1,23 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.EntityFrameworkCore.Design.3.1.22\build\net461\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('..\packages\Microsoft.EntityFrameworkCore.Design.3.1.22\build\net461\Microsoft.EntityFrameworkCore.Design.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{78B61F91-8875-4565-A288-7CDBA01F13DE}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{49F4173E-84BA-405F-8E07-4CE0F861A540}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IceCreamShopView</RootNamespace>
-    <AssemblyName>IceCreamShopView</AssemblyName>
+    <RootNamespace>IceCreamShopDatabaseImplement</RootNamespace>
+    <AssemblyName>IceCreamShopDatabaseImplement</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,15 +24,16 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Azure.Core, Version=1.6.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
@@ -120,9 +120,10 @@
     <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.8.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
-    <Reference Include="System">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
@@ -148,6 +149,7 @@
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.8.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
@@ -170,8 +172,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
@@ -220,134 +222,39 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Unity.Abstractions, Version=5.11.7.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.11.10\lib\net48\Unity.Abstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Unity.Container, Version=5.11.11.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.5.11.10\lib\net48\Unity.Container.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormComponent.cs">
-      <SubType>Form</SubType>
+    <Compile Include="IceCreamShopDatabase.cs" />
+    <Compile Include="Implements\ComponentStorage.cs" />
+    <Compile Include="Implements\IceCreamStorage.cs" />
+    <Compile Include="Implements\OrderStorage.cs" />
+    <Compile Include="Migrations\20220225141300_InitialCreate.cs" />
+    <Compile Include="Migrations\20220225141300_InitialCreate.designer.cs">
+      <DependentUpon>20220225141300_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormComponent.Designer.cs">
-      <DependentUpon>FormComponent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormComponents.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormComponents.Designer.cs">
-      <DependentUpon>FormComponents.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormCreateOrder.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormCreateOrder.Designer.cs">
-      <DependentUpon>FormCreateOrder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormIceCream.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormIceCream.Designer.cs">
-      <DependentUpon>FormIceCream.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormIceCreamComponent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormIceCreamComponent.Designer.cs">
-      <DependentUpon>FormIceCreamComponent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormIceCreams.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormIceCreams.Designer.cs">
-      <DependentUpon>FormIceCreams.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormMain.Designer.cs">
-      <DependentUpon>FormMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Migrations\IceCreamShopDatabaseModelSnapshot.cs" />
+    <Compile Include="Models\Component.cs" />
+    <Compile Include="Models\IceCream.cs" />
+    <Compile Include="Models\IceCreamComponent.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormComponent.resx">
-      <DependentUpon>FormComponent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormComponents.resx">
-      <DependentUpon>FormComponents.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormCreateOrder.resx">
-      <DependentUpon>FormCreateOrder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormIceCream.resx">
-      <DependentUpon>FormIceCream.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormIceCreamComponent.resx">
-      <DependentUpon>FormIceCreamComponent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormIceCreams.resx">
-      <DependentUpon>FormIceCreams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IceCreamShopBusinessLogic\IceCreamShopBusinessLogic.csproj">
-      <Project>{3913e3ec-603d-49dc-9801-7584af68a8dc}</Project>
-      <Name>IceCreamShopBusinessLogic</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IceCreamShopContracts\IceCreamShopContracts.csproj">
       <Project>{1a622ca2-c6e5-45f9-b6f4-24998ccef1b6}</Project>
       <Name>IceCreamShopContracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IceCreamShopDatabaseImplement\IceCreamShopDatabaseImplement.csproj">
-      <Project>{49f4173e-84ba-405f-8e07-4ce0f861a540}</Project>
-      <Name>IceCreamShopDatabaseImplement</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IceCreamShopFileImplement\IceCreamShopFileImplement.csproj">
-      <Project>{3bbd6741-efed-41c9-be3c-81ddbdb11608}</Project>
-      <Name>IceCreamShopFileImplement</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IceCreamShopListImplement\IceCreamShopListImplement.csproj">
-      <Project>{25e4f72d-626a-4810-af6a-6f772e264ee4}</Project>
-      <Name>IceCreamShopListImplement</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -359,11 +266,4 @@
     <Error Condition="!Exists('..\packages\Microsoft.Data.SqlClient.SNI.4.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Data.SqlClient.SNI.4.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.4.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.4.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
