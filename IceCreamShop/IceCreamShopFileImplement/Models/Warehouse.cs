@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IceCreamShopListImplement.Models
+namespace IceCreamShopFileImplement.Models
 {
     public class Warehouse
     {
