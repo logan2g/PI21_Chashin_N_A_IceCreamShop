@@ -9,7 +9,7 @@ namespace IceCreamShopDatabaseImplement
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=IceCreamShopDatabase;Integrated Security=True;MultipleActiveResultSets=True;");
+                optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=IceCreamShopDatabase_Hard;Integrated Security=True;MultipleActiveResultSets=True;");
             }
             base.OnConfiguring(optionsBuilder);
         }
@@ -21,5 +21,9 @@ namespace IceCreamShopDatabaseImplement
         public virtual DbSet<IceCreamComponent> IceCreamComponents { set; get; }
 
         public virtual DbSet<Order> Orders { set; get; }
+
+        public virtual DbSet<Warehouse> Warehouses { set; get; }
+
+        public virtual DbSet<WarehouseComponent> WarehouseComponents { set; get; }
     }
 }

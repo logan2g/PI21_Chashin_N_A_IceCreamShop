@@ -45,7 +45,6 @@
     <Compile Include="Implements\ComponentStorage.cs" />
     <Compile Include="Implements\IceCreamStorage.cs" />
     <Compile Include="Implements\OrderStorage.cs" />
-    <Compile Include="Implements\WarehouseStorage.cs" />
     <Compile Include="Models\Component.cs" />
     <Compile Include="Models\IceCream.cs" />
     <Compile Include="Models\Order.cs" />
