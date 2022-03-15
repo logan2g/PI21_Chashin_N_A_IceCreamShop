@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,21 +29,61 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.15.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.15.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.DocumentObjectModel-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\MigraDoc.DocumentObjectModel-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.Rendering-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\MigraDoc.Rendering-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.RtfRendering-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\MigraDoc.RtfRendering-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\PdfSharp-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\PdfSharp.Charting-gdi.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessLogics\ComponentLogic.cs" />
     <Compile Include="BusinessLogics\IceCreamLogic.cs" />
     <Compile Include="BusinessLogics\OrderLogic.cs" />
+    <Compile Include="BusinessLogics\ReportLogic.cs" />
+    <Compile Include="OfficePackage\AbstractSaveToExcel.cs" />
+    <Compile Include="OfficePackage\AbstractSaveToPdf.cs" />
+    <Compile Include="OfficePackage\AbstractSaveToWord.cs" />
+    <Compile Include="OfficePackage\HelperEnums\ExcelStyleInfoType.cs" />
+    <Compile Include="OfficePackage\HelperEnums\PdfParagraphAlignmentType.cs" />
+    <Compile Include="OfficePackage\HelperEnums\WordJustificationType.cs" />
+    <Compile Include="OfficePackage\HelperModels\ExcelCellParameters.cs" />
+    <Compile Include="OfficePackage\HelperModels\ExcelInfo.cs" />
+    <Compile Include="OfficePackage\HelperModels\ExcelMergeParameters.cs" />
+    <Compile Include="OfficePackage\HelperModels\PdfInfo.cs" />
+    <Compile Include="OfficePackage\HelperModels\PdfParagraph.cs" />
+    <Compile Include="OfficePackage\HelperModels\PdfRowParameters.cs" />
+    <Compile Include="OfficePackage\HelperModels\WordInfo.cs" />
+    <Compile Include="OfficePackage\HelperModels\WordParagraph.cs" />
+    <Compile Include="OfficePackage\HelperModels\WordTextProperties.cs" />
+    <Compile Include="OfficePackage\Implements\SaveToExcel.cs" />
+    <Compile Include="OfficePackage\Implements\SaveToWord.cs" />
+    <Compile Include="OfficePackage\Implements\SaveToPdf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +91,9 @@
       <Project>{1a622ca2-c6e5-45f9-b6f4-24998ccef1b6}</Project>
       <Name>IceCreamShopContracts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
