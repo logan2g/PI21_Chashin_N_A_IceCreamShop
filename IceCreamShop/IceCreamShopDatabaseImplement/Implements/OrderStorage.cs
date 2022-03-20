@@ -129,6 +129,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                     throw new Exception("Элемент не найден");
                 }
                 element.IceCreamId = model.IceCreamId;
+                element.IceCreamName = context.IceCreams.FirstOrDefault(pr => pr.Id == model.IceCreamId).IceCreamName;
                 element.Count = model.Count;
                 element.Sum = model.Sum;
                 element.Status = model.Status;
