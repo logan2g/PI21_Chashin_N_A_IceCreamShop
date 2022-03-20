@@ -5,7 +5,6 @@ using IceCreamShopContracts.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace IceCreamShopDatabaseImplement.Implements
 {
@@ -20,7 +19,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     IceCreamId = rec.IceCreamId,
-                    IceCreamName = context.IceCreams.FirstOrDefault(pr => pr.Id == rec.IceCreamId).IceCreamName,
+                    IceCreamName = rec.IceCreamName,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -45,7 +44,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     IceCreamId = rec.IceCreamId,
-                    IceCreamName = context.IceCreams.FirstOrDefault(pr => pr.Id == rec.IceCreamId).IceCreamName,
+                    IceCreamName = rec.IceCreamName,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -63,14 +62,13 @@ namespace IceCreamShopDatabaseImplement.Implements
             }
             using (var context = new IceCreamShopDatabase())
             {
-                var order = context.Orders
-                .FirstOrDefault(rec => rec.Id == model.Id);
+                var order = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
                 return order != null ?
                 new OrderViewModel
                 {
                     Id = order.Id,
                     IceCreamId = order.IceCreamId,
-                    IceCreamName = context.IceCreams.FirstOrDefault(rec => rec.Id == order.IceCreamId)?.IceCreamName,
+                    IceCreamName = order?.IceCreamName,
                     Count = order.Count,
                     Sum = order.Sum,
                     Status = order.Status,
@@ -87,6 +85,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                 Order order = new Order
                 {
                     IceCreamId = model.IceCreamId,
+                    IceCreamName = context.IceCreams.FirstOrDefault(pr => pr.Id == model.IceCreamId)?.IceCreamName,
                     Count = model.Count,
                     Sum = model.Sum,
                     Status = model.Status,
@@ -109,6 +108,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                     throw new Exception("Элемент не найден");
                 }
                 element.IceCreamId = model.IceCreamId;
+                element.IceCreamName = context.IceCreams.FirstOrDefault(pr => pr.Id == model.IceCreamId).IceCreamName;
                 element.Count = model.Count;
                 element.Sum = model.Sum;
                 element.Status = model.Status;
