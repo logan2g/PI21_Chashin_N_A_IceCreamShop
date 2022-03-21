@@ -18,6 +18,6 @@ namespace IceCreamShopContracts.StoragesContracts
 
         void Delete(WarehouseBindingModel model);
 
-        bool TakeFromWarehouse(Dictionary<int, (string, int)> components, int count);
+        void TakeFromWarehouse(IceCreamViewModel model, int countInOrder);
     }
 }

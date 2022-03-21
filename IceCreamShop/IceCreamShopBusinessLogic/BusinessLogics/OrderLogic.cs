@@ -62,11 +62,11 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
-            if (!_warehouseStorage.TakeFromWarehouse(_iceCreamStorage.GetElement
-              (new IceCreamBindingModel { Id = order.IceCreamId }).IceCreamComponents, order.Count))
+            var iceCream = _iceCreamStorage.GetElement(new IceCreamBindingModel
             {
-                throw new Exception("Недостаточно компонентов на складах");
-            }
+                Id = order.IceCreamId
+            });
+            _warehouseStorage.TakeFromWarehouse(iceCream, order.Count);
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
