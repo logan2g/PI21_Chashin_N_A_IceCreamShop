@@ -45,9 +45,11 @@
     <Compile Include="BindingModels\CreateOrderBindingModel.cs" />
     <Compile Include="BindingModels\IceCreamBindingModel.cs" />
     <Compile Include="BindingModels\OrderBindingModel.cs" />
+    <Compile Include="BindingModels\ReportBindingModel.cs" />
     <Compile Include="BusinessLogicsContracts\IComponentLogic.cs" />
     <Compile Include="BusinessLogicsContracts\IIceCreamLogic.cs" />
     <Compile Include="BusinessLogicsContracts\IOrderLogic.cs" />
+    <Compile Include="BusinessLogicsContracts\IReportLogic.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoragesContracts\IComponentStorage.cs" />
@@ -56,6 +58,8 @@
     <Compile Include="ViewModels\ComponentViewModel.cs" />
     <Compile Include="ViewModels\IceCreamViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\ReportIceCreamComponentViewModel.cs" />
+    <Compile Include="ViewModels\ReportOrderViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
