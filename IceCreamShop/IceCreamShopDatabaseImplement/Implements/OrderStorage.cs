@@ -2,6 +2,7 @@
 using IceCreamShopContracts.BindingModels;
 using IceCreamShopContracts.StoragesContracts;
 using IceCreamShopContracts.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,35 +37,21 @@ namespace IceCreamShopDatabaseImplement.Implements
             {
                 return null;
             }
-            if (model.DateFrom != null && model.DateTo != null)
-            {
-                using (var context = new IceCreamShopDatabase())
-                {
-                    return context.Orders
-                        .Where(rec => rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
-                        .Select(rec => new OrderViewModel
-                        {
-                            Id = rec.Id,
-                            IceCreamId = rec.IceCreamId,
-                            IceCreamName = rec.IceCreamName,
-                            Count = rec.Count,
-                            Sum = rec.Sum,
-                            Status = rec.Status,
-                            DateCreate = rec.DateCreate,
-                            DateImplement = rec.DateImplement,
-                        })
-                        .ToList();
-                }
-            }
             using (var context = new IceCreamShopDatabase())
             {
                 return context.Orders
-                .Where(rec => rec.IceCreamId == model.IceCreamId)
+                .Include(rec => rec.IceCream)
+                .Include(rec => rec.Client)
+                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+            (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
+            (model.ClientId.HasValue && rec.ClientId == model.ClientId))
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
                     IceCreamId = rec.IceCreamId,
                     IceCreamName = rec.IceCreamName,
+                    ClientId = rec.ClientId,
+                    ClientFIO = rec.Client.ClientFIO,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -103,9 +90,14 @@ namespace IceCreamShopDatabaseImplement.Implements
         {
             using (var context = new IceCreamShopDatabase())
             {
+                if (!model.ClientId.HasValue)
+                {
+                    throw new Exception("Клиент не указан");
+                }
                 Order order = new Order
                 {
                     IceCreamId = model.IceCreamId,
+                    ClientId = (int)model.ClientId,
                     IceCreamName = context.IceCreams.FirstOrDefault(pr => pr.Id == model.IceCreamId).IceCreamName,
                     Count = model.Count,
                     Sum = model.Sum,
@@ -173,6 +165,21 @@ namespace IceCreamShopDatabaseImplement.Implements
                     }
                     element.Orders.Add(order);
                     context.IceCreams.Update(element);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Элемент не найден");
+                }
+                Client client = context.Clients.FirstOrDefault(rec => rec.Id == model.ClientId);
+                if (client != null)
+                {
+                    if (client.Order == null)
+                    {
+                        client.Order = new List<Order>();
+                    }
+                    client.Order.Add(order);
+                    context.Clients.Update(client);
                     context.SaveChanges();
                 }
                 else
