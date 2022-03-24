@@ -1,13 +1,13 @@
 ﻿using IceCreamShopContracts.BindingModels;
 using IceCreamShopContracts.ViewModels;
-using APIClient.Models;
+using IceCreamShopClientApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace APIClient.Controllers
+namespace IceCreamShopClientApp.Controllers
 {
     public class HomeController : Controller
     {
@@ -119,28 +119,32 @@ namespace APIClient.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Products =
-        APIClient.GetRequest<List<IceCreamViewModel>>("api/main/getproductlist");
+            ViewBag.IceCreams = APIClient.GetRequest<List<IceCreamViewModel>>("api/main/geticecreamlist");
             return View();
         }
 
         [HttpPost]
-        public void Create(int product, int count, decimal sum)
+        public void Create(int iceCream, int count, decimal sum)
         {
             if (count == 0 || sum == 0)
             {
                 return;
             }
-            //прописать запрос 
+            APIClient.PostRequest("api/main/createorder", new CreateOrderBindingModel
+            {
+                ClientId = (int)Program.Client.Id,
+                IceCreamId = iceCream,
+                Count = count,
+                Sum = sum
+            });
             Response.Redirect("Index");
         }
 
         [HttpPost]
-        public decimal Calc(decimal count, int product)
+        public decimal Calc(decimal count, int iceCream)
         {
-            IceCreamViewModel prod = APIClient.GetRequest<IceCreamViewModel>($"api/main/getproduct?productId={product}");
+            IceCreamViewModel prod = APIClient.GetRequest<IceCreamViewModel>($"api/main/geticecream?iceCreamId={iceCream}");
             return count * prod.Price;
-
         }
     }
 }

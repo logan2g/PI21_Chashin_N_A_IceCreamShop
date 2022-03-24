@@ -6,10 +6,9 @@
 </div>
 <form method="post">
     <div class="row">
-        <div class="col-4">Изделие:</div>
+        <div class="col-4">Мороженое:</div>
         <div class="col-8">
-            <select id="product" name="product" class="form-control" asp-
-                    items="@(new SelectList(@ViewBag.Products,"Id", "ProductName"))"></select>
+            <select id="iceCream" name="iceCream" class="form-control" asp-items="@(new SelectList(@ViewBag.IceCreams,"Id", "IceCreamName"))"></select>
         </div>
     </div>
     <div class="row">
@@ -32,7 +31,7 @@
 
 <script>
 
-    $('#product').on('change', function () {
+    $('#iceCream').on('change', function () {
         check();
     });
     $('#count').on('change', function () {
@@ -41,15 +40,16 @@
 
     function check() {
         var count = $('#count').val();
-        var product = $('#product').val();
-        if (count && product) {
+        var iceCream = $('#iceCream').val();
+        if (count && iceCream) {
             $.ajax({
                 method: "POST",
                 url: "/Home/Calc",
-                data: { count: count, product: product },
+                data: { count: count, iceCream: iceCream },
                 success: function (result) {
                     $("#sum").val(result);
                 }
             });
         }
+    }
 </script>

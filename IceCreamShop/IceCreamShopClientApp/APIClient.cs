@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace APIClient
+namespace IceCreamShopClientApp
 {
     public static class APIClient
     {

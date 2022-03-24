@@ -18,8 +18,6 @@ namespace IceCreamShopDatabaseImplement.Models
 
         public virtual IceCream IceCream { get; set; }
 
-        public string OrderName { get; set; }
-
         public string IceCreamName { get; set; }
 
         [Required]

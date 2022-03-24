@@ -1,6 +1,6 @@
 using System;
 
-namespace APIClient.Models
+namespace IceCreamShopClientApp.Models
 {
     public class ErrorViewModel
     {

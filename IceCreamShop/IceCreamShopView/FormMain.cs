@@ -150,5 +150,31 @@ namespace IceCreamShopView
             var form = Program.Container.Resolve<FormReportIceCreamsComponents>();
             form.ShowDialog();
         }
+
+        private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormClients>();
+            form.ShowDialog();
+        }
+
+        private void buttonDel_Click(object sender, EventArgs e)
+        {
+            if(dataGridView.SelectedRows.Count == 1)
+            {
+                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                try
+                {
+                    _orderLogic.Delete(new OrderBindingModel
+                    {
+                        Id = id
+                    });
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }

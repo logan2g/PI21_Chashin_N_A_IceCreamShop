@@ -2,7 +2,7 @@ using IceCreamShopContracts.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace APIClient
+namespace IceCreamShopClientApp
 {
     public class Program
     {

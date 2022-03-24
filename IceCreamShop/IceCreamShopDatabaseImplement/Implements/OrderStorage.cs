@@ -19,6 +19,8 @@ namespace IceCreamShopDatabaseImplement.Implements
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
+                    ClientId = rec.ClientId,
+                    ClientFIO = context.Clients.FirstOrDefault(cl => cl.Id == rec.ClientId).ClientFIO,
                     IceCreamId = rec.IceCreamId,
                     IceCreamName = rec.IceCreamName,
                     Count = rec.Count,
@@ -69,21 +71,20 @@ namespace IceCreamShopDatabaseImplement.Implements
             }
             using (var context = new IceCreamShopDatabase())
             {
-                var order = context.Orders
-                .FirstOrDefault(rec => rec.Id == model.Id);
+                var order = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
                 return order != null ?
                 new OrderViewModel
                 {
                     Id = order.Id,
                     IceCreamId = order.IceCreamId,
+                    ClientId = order.ClientId,
                     IceCreamName = order?.IceCreamName,
                     Count = order.Count,
                     Sum = order.Sum,
                     Status = order.Status,
                     DateCreate = order.DateCreate,
                     DateImplement = order.DateImplement,
-                } :
-                null;
+                } : null;
             }
         }
         public void Insert(OrderBindingModel model)
@@ -107,7 +108,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                 };
                 context.Orders.Add(order);
                 context.SaveChanges();
-                CreateModel(model, order);
+                CreateModel(model, order, context);
                 context.SaveChanges();
             }
         }
@@ -121,13 +122,14 @@ namespace IceCreamShopDatabaseImplement.Implements
                     throw new Exception("Элемент не найден");
                 }
                 element.IceCreamId = model.IceCreamId;
+                element.ClientId = (int)model.ClientId;
                 element.IceCreamName = context.IceCreams.FirstOrDefault(pr => pr.Id == model.IceCreamId).IceCreamName;
                 element.Count = model.Count;
                 element.Sum = model.Sum;
                 element.Status = model.Status;
                 element.DateCreate = model.DateCreate;
                 element.DateImplement = model.DateImplement;
-                CreateModel(model, element);
+                CreateModel(model, element, context);
                 context.SaveChanges();
             }
         }
@@ -147,15 +149,16 @@ namespace IceCreamShopDatabaseImplement.Implements
                 }
             }
         }
-        private Order CreateModel(OrderBindingModel model, Order order)
+
+        private Order CreateModel(OrderBindingModel model, Order order, IceCreamShopDatabase context)
         {
             if (model == null)
             {
                 return null;
             }
 
-            using (var context = new IceCreamShopDatabase())
-            {
+            //using (var context = new IceCreamShopDatabase())
+            //{
                 IceCream element = context.IceCreams.FirstOrDefault(rec => rec.Id == model.IceCreamId);
                 if (element != null)
                 {
@@ -186,7 +189,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                 {
                     throw new Exception("Элемент не найден");
                 }
-            }
+            //}
             return order;
         }
     }

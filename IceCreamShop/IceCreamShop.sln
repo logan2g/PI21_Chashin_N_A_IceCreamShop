@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamShopDatabaseImpleme
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCreamShopRestApi", "IceCreamShopRestApi\IceCreamShopRestApi.csproj", "{3F47AD4D-CDA1-41BE-96FF-8ADA80EB9F6E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIClient", "APIClient\APIClient.csproj", "{EA3A4391-9C34-4095-92FA-F534EC889762}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCreamShopClientApp", "IceCreamShopClientApp\IceCreamShopClientApp.csproj", "{EA3A4391-9C34-4095-92FA-F534EC889762}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
