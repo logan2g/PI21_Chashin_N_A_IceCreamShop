@@ -36,6 +36,26 @@ namespace IceCreamShopDatabaseImplement.Implements
             {
                 return null;
             }
+            if (model.DateFrom != null && model.DateTo != null)
+            {
+                using (var context = new IceCreamShopDatabase())
+                {
+                    return context.Orders
+                        .Where(rec => rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
+                        .Select(rec => new OrderViewModel
+                        {
+                            Id = rec.Id,
+                            IceCreamId = rec.IceCreamId,
+                            IceCreamName = rec.IceCreamName,
+                            Count = rec.Count,
+                            Sum = rec.Sum,
+                            Status = rec.Status,
+                            DateCreate = rec.DateCreate,
+                            DateImplement = rec.DateImplement,
+                        })
+                        .ToList();
+                }
+            }
             using (var context = new IceCreamShopDatabase())
             {
                 return context.Orders
