@@ -10,5 +10,7 @@ namespace IceCreamShopBusinessLogic.OfficePackage.HelperModels
         public string Title { get; set; }
 
         public List<IceCreamViewModel> IceCreams { get; set; }
+
+        public List<WarehouseViewModel> Warehouses { get; set; }
     }
 }

@@ -141,7 +141,7 @@ namespace IceCreamShopView
 
         private void СписокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Program.Container.Resolve<FormReportOrders>();
+            var form = Program.Container.Resolve<FormReportOrders>(new Unity.Resolution.ResolverOverride[] { new Unity.Resolution.ParameterOverride("fullPeriod", false) });
             form.ShowDialog();
         }
 
@@ -161,6 +161,31 @@ namespace IceCreamShopView
         private void МороженыеПоКомпонентамToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormReportIceCreamsComponents>();
+            form.ShowDialog();
+        }
+
+        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                _reportLogic.SaveWarehousesToWordFile(new ReportBindingModel
+                {
+                    FileName = dialog.FileName
+                });
+                MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void складыПоКомпонентамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormReportWarehouseComponents>();
+            form.ShowDialog();
+        }
+
+        private void списокЗаказовЗаВсёВремяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormReportOrders>(new Unity.Resolution.ResolverOverride[] { new Unity.Resolution.ParameterOverride("fullPeriod", true) });
             form.ShowDialog();
         }
     }

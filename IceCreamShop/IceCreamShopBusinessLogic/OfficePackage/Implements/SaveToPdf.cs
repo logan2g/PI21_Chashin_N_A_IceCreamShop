@@ -7,7 +7,7 @@ using MigraDoc.Rendering;
 
 namespace IceCreamShopBusinessLogic.OfficePackage.Implements
 {
-    public class SaveToPdf : AbstractSaveToPdf
+    public class SaveToPdf : AbstractSaveToPdfFull
     {
         private Document _document;
 

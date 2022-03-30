@@ -1,10 +1,11 @@
 ﻿using IceCreamShopContracts.BindingModels;
 using IceCreamShopContracts.BusinessLogicsContracts;
+using IceCreamShopContracts.ViewModels;
 using Microsoft.Reporting.WinForms;
 using System;
 using System.IO;
 using System.Windows.Forms;
-
+using System.Collections.Generic;
 
 namespace IceCreamShopView
 {
@@ -14,15 +15,32 @@ namespace IceCreamShopView
 
         private readonly IReportLogic _logic;
 
-        public FormReportOrders(IReportLogic logic)
+        private readonly bool _fullPeriod;
+
+        public FormReportOrders(IReportLogic logic, bool fullPeriod)
         {
             InitializeComponent();
+            if (fullPeriod)
+            {
+                label1.Visible = false;
+                label2.Visible = false;
+                dateTimePickerFrom.Visible = false;
+                dateTimePickerTo.Visible = false;
+            }
             _logic = logic;
+            _fullPeriod = fullPeriod;
             reportViewer = new ReportViewer
             {
                 Dock = DockStyle.Fill
             };
-            reportViewer.LocalReport.LoadReportDefinition(new FileStream("ReportOrders.rdlc", FileMode.Open));
+            if (fullPeriod)
+            {
+                reportViewer.LocalReport.LoadReportDefinition(new FileStream("ReportOrderFull.rdlc", FileMode.Open));
+            }
+            else
+            {
+                reportViewer.LocalReport.LoadReportDefinition(new FileStream("ReportOrderPeriod.rdlc", FileMode.Open));
+            }
             Controls.Clear();
             Controls.Add(panel);
             Controls.Add(reportViewer);
@@ -30,23 +48,34 @@ namespace IceCreamShopView
 
         private void BtnMake_Click(object sender, EventArgs e)
         {
-            if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
+            if (!_fullPeriod && dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
             {
                 MessageBox.Show("Дата начала должна быть меньше даты окончания", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
             {
-                var dataSource = _logic.GetOrders(new ReportBindingModel
+                List<ReportOrderViewModel> dataSource = null;
+                if (_fullPeriod)
                 {
-                    DateFrom = dateTimePickerFrom.Value,
-                    DateTo = dateTimePickerTo.Value
-                });
+                    dataSource = _logic.GetOrdersFull();
+                }
+                else
+                {
+                    dataSource = _logic.GetOrders(new ReportBindingModel
+                    {
+                        DateFrom = dateTimePickerFrom.Value,
+                        DateTo = dateTimePickerTo.Value
+                    });
+                }
                 var source = new ReportDataSource("DataSetOrders", dataSource);
                 reportViewer.LocalReport.DataSources.Clear();
                 reportViewer.LocalReport.DataSources.Add(source);
-                var parameters = new[] {  new ReportParameter("ReportParameterPeriod", "c " + dateTimePickerFrom.Value.ToShortDateString() + " по " + dateTimePickerTo.Value.ToShortDateString()) };
-                reportViewer.LocalReport.SetParameters(parameters);
+                if (!_fullPeriod)
+                {
+                    var parameters = new[] { new ReportParameter("ReportParameterPeriod", "c " + dateTimePickerFrom.Value.ToShortDateString() + " по " + dateTimePickerTo.Value.ToShortDateString()) };
+                    reportViewer.LocalReport.SetParameters(parameters);
+                }
                 reportViewer.RefreshReport();
             }
             catch (Exception ex)
@@ -58,7 +87,7 @@ namespace IceCreamShopView
 
         private void BtnToPDF_Click(object sender, EventArgs e)
         {
-            if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
+            if (!_fullPeriod && dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
             {
                 MessageBox.Show("Дата начала должна быть меньше даты окончания", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -68,12 +97,22 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    _logic.SaveOrdersToPdfFile(new ReportBindingModel
+                    if (_fullPeriod)
                     {
-                        FileName = dialog.FileName,
-                        DateFrom = dateTimePickerFrom.Value,
-                        DateTo = dateTimePickerTo.Value
-                    });
+                        _logic.SaveOrdersFullToPdfFile(new ReportBindingModel
+                        {
+                            FileName = dialog.FileName
+                        });
+                    }
+                    else
+                    {
+                        _logic.SaveOrdersByDateToPdfFile(new ReportBindingModel
+                        {
+                            FileName = dialog.FileName,
+                            DateFrom = dateTimePickerFrom.Value,
+                            DateTo = dateTimePickerTo.Value
+                        });
+                    }
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
