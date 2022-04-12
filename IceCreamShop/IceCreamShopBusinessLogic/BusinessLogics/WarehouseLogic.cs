@@ -62,25 +62,25 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
             _warehouseStorage.Delete(warehouse);
         }
 
-        public void AddComponents(WarehouseBindingModel model, int componentId, int count)
+        public void AddComponents(WarehouseTopUpBindingModel model)
         {
-            var warehouse = _warehouseStorage.GetElement(new WarehouseBindingModel { Id = model.Id });
-            if (warehouse.WarehouseComponents.ContainsKey(componentId))
+            var warehouse = _warehouseStorage.GetElement(new WarehouseBindingModel { Id = model.WarehouseId });
+            if (warehouse.WarehouseComponents.ContainsKey(model.ComponentId))
             {
-                warehouse.WarehouseComponents[componentId] =
-                    (warehouse.WarehouseComponents[componentId].Item1, warehouse.WarehouseComponents[componentId].Item2 + count);
+                warehouse.WarehouseComponents[model.ComponentId] =
+                    (warehouse.WarehouseComponents[model.ComponentId].Item1, warehouse.WarehouseComponents[model.ComponentId].Item2 + model.Count);
             }
             else
             {
                 var component = _componentStorage.GetElement(new ComponentBindingModel
                 {
-                    Id = componentId
+                    Id = model.ComponentId
                 });
                 if (component == null)
                 {
                     throw new Exception("Компонент не найден");
                 }
-                warehouse.WarehouseComponents.Add(componentId, (component.ComponentName, count));
+                warehouse.WarehouseComponents.Add(model.ComponentId, (component.ComponentName, model.Count));
             }
             _warehouseStorage.Update(new WarehouseBindingModel
             {

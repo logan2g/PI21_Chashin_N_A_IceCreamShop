@@ -24,11 +24,15 @@ namespace IceCreamShopRestApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IClientStorage, ClientStorage>();
+            services.AddTransient<IComponentStorage, ComponentStorage>();
+            services.AddTransient<IWarehouseStorage, WarehouseStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IIceCreamStorage, IceCreamStorage>();
 
-            services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
+            services.AddTransient<IComponentLogic, ComponentLogic>();
+            services.AddTransient<IWarehouseLogic, WarehouseLogic>();
+            services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IIceCreamLogic, IceCreamLogic>();
 
             services.AddControllers();

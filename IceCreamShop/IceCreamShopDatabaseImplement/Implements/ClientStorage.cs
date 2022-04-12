@@ -35,7 +35,7 @@ namespace IceCreamShopDatabaseImplement.Implements
             using (var context = new IceCreamShopDatabase())
             {
                 return context.Clients.Include(x => x.Order)
-                .Where(rec => rec.Email == model.Email && rec.Password == rec.Password)
+                .Where(rec => (rec.Email.Equals(model.Email) && rec.Password.Equals(model.Password)))
                 .Select(rec => new ClientViewModel
                 {
                     Id = rec.Id,

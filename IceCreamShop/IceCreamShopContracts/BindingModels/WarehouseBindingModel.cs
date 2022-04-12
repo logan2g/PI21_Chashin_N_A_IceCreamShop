@@ -7,7 +7,7 @@ namespace IceCreamShopContracts.BindingModels
     {
         public int? Id { get; set; }
 
-        public string WarehouseName;
+        public string WarehouseName { get; set; }
 
         public string ResponsiblePerson { get; set; }
 

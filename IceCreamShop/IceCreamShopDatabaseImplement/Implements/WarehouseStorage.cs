@@ -209,7 +209,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                 context.Warehouses.Add(warehouse);
                 context.SaveChanges();
             }
-            if (model.Id.HasValue)
+            if (model.Id.HasValue && model.WarehouseComponents != null)
             {
                 var warehouseComponents = context.WarehouseComponents.Where(rec => rec.WarehouseId == model.Id.Value).ToList();
                 // удалили те, которых нет в модели
@@ -222,18 +222,19 @@ namespace IceCreamShopDatabaseImplement.Implements
                     model.WarehouseComponents.Remove(updateComponent.ComponentId);
                 }
                 context.SaveChanges();
-            }
-            // добавили новые
-            foreach (var sc in model.WarehouseComponents)
-            {
-                context.WarehouseComponents.Add(new WarehouseComponent
+                // добавили новые
+                foreach (var sc in model.WarehouseComponents)
                 {
-                    WarehouseId = warehouse.Id,
-                    ComponentId = sc.Key,
-                    Count = sc.Value.Item2
-                });
-                context.SaveChanges();
+                    context.WarehouseComponents.Add(new WarehouseComponent
+                    {
+                        WarehouseId = warehouse.Id,
+                        ComponentId = sc.Key,
+                        Count = sc.Value.Item2
+                    });
+                    context.SaveChanges();
+                }
             }
+            
             return warehouse;
         }
 

@@ -128,9 +128,6 @@ namespace IceCreamShopDatabaseImplement.Migrations
                     b.Property<string>("IceCreamName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OrderName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
