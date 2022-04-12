@@ -1,4 +1,6 @@
 ﻿using IceCreamShopBusinessLogic.BusinessLogics;
+using IceCreamShopBusinessLogic.OfficePackage.Implements;
+using IceCreamShopBusinessLogic.OfficePackage;
 using IceCreamShopContracts.BusinessLogicsContracts;
 using IceCreamShopContracts.StoragesContracts;
 using IceCreamShopDatabaseImplement.Implements;
@@ -49,7 +51,12 @@ namespace IceCreamShopView
             currentContainer.RegisterType<IComponentLogic, ComponentLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IOrderLogic, OrderLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IIceCreamLogic, IceCreamLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IReportLogic, ReportLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IWarehouseLogic, WarehouseLogic>(new HierarchicalLifetimeManager());
+
+            currentContainer.RegisterType<AbstractSaveToExcel, SaveToExcel>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToWord, SaveToWord>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToPdf, SaveToPdf>(new HierarchicalLifetimeManager());
 
             return currentContainer;
         }
