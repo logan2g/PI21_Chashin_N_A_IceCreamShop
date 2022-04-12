@@ -41,9 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataListSingleton.cs" />
+    <Compile Include="Implements\ClientStorage.cs" />
     <Compile Include="Implements\ComponentStorage.cs" />
     <Compile Include="Implements\IceCreamStorage.cs" />
     <Compile Include="Implements\OrderStorage.cs" />
+    <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Component.cs" />
     <Compile Include="Models\IceCream.cs" />
     <Compile Include="Models\Order.cs" />

@@ -34,6 +34,7 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
         {
             _orderStorage.Insert(new OrderBindingModel
             {
+                ClientId = model.ClientId,
                 IceCreamId = model.IceCreamId,
                 Count = model.Count,
                 Sum = model.Sum,
@@ -59,6 +60,7 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 IceCreamId = order.IceCreamId,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -85,6 +87,7 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 IceCreamId = order.IceCreamId,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -111,6 +114,7 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 IceCreamId = order.IceCreamId,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -118,6 +122,18 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Выдан
             });
+        }
+
+        public void Delete(OrderBindingModel model)
+        {
+            var element = _orderStorage.GetElement(model);
+
+            if (element == null)
+            {
+                throw new Exception("Элемент не найден");
+            }
+
+            _orderStorage.Delete(model);
         }
     }
 }

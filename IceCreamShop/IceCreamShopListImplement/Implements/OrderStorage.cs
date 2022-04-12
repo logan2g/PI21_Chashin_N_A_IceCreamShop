@@ -35,8 +35,9 @@ namespace IceCreamShopListImplement.Implements
             List<OrderViewModel> result = new List<OrderViewModel>();
             foreach (var order in source.Orders)
             {
-                if (order.IceCreamId == model.IceCreamId
-                    && order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo)
+                if ((!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate == model.DateCreate) ||
+            (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date && order.DateCreate.Date <= model.DateTo.Value.Date) ||
+            (model.ClientId.HasValue && order.ClientId == model.ClientId))
                 {
                     result.Add(CreateModel(order));
                 }
@@ -106,6 +107,7 @@ namespace IceCreamShopListImplement.Implements
         private Order CreateModel(OrderBindingModel model, Order order)
         {
             order.IceCreamId = model.IceCreamId;
+            order.ClientId = (int)model.ClientId;
             order.Count = model.Count;
             order.Status = model.Status;
             order.Sum = model.Sum;
@@ -130,6 +132,8 @@ namespace IceCreamShopListImplement.Implements
             {
                 Id = order.Id,
                 IceCreamId = order.IceCreamId,
+                ClientId = (int)order.ClientId,
+                ClientFIO = order.ClientFIO,
                 IceCreamName = ResultIceCreamName,
                 Count = order.Count,
                 Status = order.Status,

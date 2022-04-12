@@ -13,11 +13,14 @@ namespace IceCreamShopView
 
         private readonly IOrderLogic _logicO;
 
-        public FormCreateOrder(IIceCreamLogic logicI, IOrderLogic logicO)
+        private readonly IClientLogic _logicC;
+
+        public FormCreateOrder(IIceCreamLogic logicI, IOrderLogic logicO, IClientLogic logicC)
         {
             InitializeComponent();
             _logicI = logicI;
             _logicO = logicO;
+            _logicC = logicC;
         }
 
         private void FormCreateOrder_Load(object sender, EventArgs e)
@@ -35,6 +38,18 @@ namespace IceCreamShopView
                 else
                 {
                     throw new Exception("Не удалось загрузить список мороженого");
+                }
+                List<ClientViewModel> listClients = _logicC.Read(null);
+                if (listClients != null)
+                {
+                    comboBoxClient.DisplayMember = "ClientFIO";
+                    comboBoxClient.ValueMember = "Id";
+                    comboBoxClient.DataSource = listClients;
+                    comboBoxClient.SelectedItem = null;
+                }
+                else
+                {
+                    throw new Exception("Не удалось загрузить список клиентов");
                 }
             }
             catch (Exception ex)
@@ -86,10 +101,16 @@ namespace IceCreamShopView
                 MessageBox.Show("Выберите мороженое", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (comboBoxClient.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите клиента", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
+                    ClientId = Convert.ToInt32(comboBoxClient.SelectedValue),
                     IceCreamId = Convert.ToInt32(comboBoxIceCream.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
