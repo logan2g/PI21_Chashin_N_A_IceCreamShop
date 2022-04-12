@@ -14,6 +14,12 @@ namespace IceCreamShopContracts.BindingModels
         public int? ClientId { get; set; }
 
         [DataMember]
+        public int? ImplementerId { get; set; }
+
+        [DataMember]
+        public OrderStatus? SearchStatus { get; set; }
+
+        [DataMember]
         public int IceCreamId { get; set; }
 
         [DataMember]
