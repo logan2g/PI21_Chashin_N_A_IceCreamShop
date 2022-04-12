@@ -7,13 +7,13 @@ using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace IceCreamShopBusinessLogic.OfficePackage.Implements
 {
-    public class SaveToWord : AbstractSaveToWordWarehouses
+    public class SaveToWord : AbstractSaveToWord
     {
         private WordprocessingDocument _wordDocument;
 
         private Body _docBody;
 
-        private Table _tableWarehouses;
+        private Table _table;
 
         private static JustificationValues GetJustificationValues(WordJustificationType type)
         {
@@ -64,8 +64,9 @@ namespace IceCreamShopBusinessLogic.OfficePackage.Implements
             return null;
         }
 
-        private void InitTable()
+        protected override void InitTable(int columns)
         {
+            _table = new Table();
             var tableProp = new TableProperties();
             tableProp.AppendChild(new TableLayout { Type = TableLayoutValues.Fixed });
             tableProp.AppendChild(new TableBorders(
@@ -77,13 +78,13 @@ namespace IceCreamShopBusinessLogic.OfficePackage.Implements
                 new InsideVerticalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 4 }
                 ));
             tableProp.AppendChild(new TableWidth { Type = TableWidthUnitValues.Auto });
-            _tableWarehouses.AppendChild(tableProp);
+            _table.AppendChild(tableProp);
             TableGrid tableGrid = new TableGrid();
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < columns; j++)
             {
                 tableGrid.AppendChild(new GridColumn() { Width = "3200" });
             }
-            _tableWarehouses.AppendChild(tableGrid);
+            _table.AppendChild(tableGrid);
         }
 
         protected override void CreateWord(WordInfo info)
@@ -92,18 +93,13 @@ namespace IceCreamShopBusinessLogic.OfficePackage.Implements
             MainDocumentPart mainPart = _wordDocument.AddMainDocumentPart();
             mainPart.Document = new Document();
             _docBody = mainPart.Document.AppendChild(new Body());
-            if(info.Warehouses != null)
-            {
-                _tableWarehouses = new Table();
-                InitTable();
-            }
         }
 
-        protected override void AddRowInWarehouses(WordParagraph paragraph)
+        protected override void AddRow(WordParagraph paragraph)
         {
             if (paragraph != null)
             {
-                TableRow warehouseInfo = new TableRow();
+                TableRow row = new TableRow();
                 foreach (var run in paragraph.Texts)
                 {
                     var docParagraph = new Paragraph();
@@ -124,9 +120,9 @@ namespace IceCreamShopBusinessLogic.OfficePackage.Implements
                     docParagraph.AppendChild(docRun);
                     TableCell cell = new TableCell();
                     cell.AppendChild(docParagraph);
-                    warehouseInfo.AppendChild(cell);
+                    row.AppendChild(cell);
                 }
-                _tableWarehouses.AppendChild(warehouseInfo);
+                _table.AppendChild(row);
             }
         }
 
@@ -160,9 +156,9 @@ namespace IceCreamShopBusinessLogic.OfficePackage.Implements
         protected override void SaveWord(WordInfo info)
         {
             _docBody.AppendChild(CreateSectionProperties());
-            if (info.Warehouses != null)
+            if (_table != null)
             {
-                _docBody.AppendChild(_tableWarehouses);
+                _docBody.AppendChild(_table);
             }
             _wordDocument.MainDocumentPart.Document.Save();
             _wordDocument.Close();

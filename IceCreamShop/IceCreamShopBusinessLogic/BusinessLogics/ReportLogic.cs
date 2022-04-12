@@ -26,15 +26,8 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
 
         private readonly AbstractSaveToPdf _saveToPdf;
 
-        private readonly AbstractSaveToWordWarehouses _saveToWordWarehouses;
-
-        private readonly AbstractSaveToExcelWarehouses _saveToExcelWarehouses;
-
-        private readonly AbstractSaveToPdfFull _saveToPdfFull;
-
         public ReportLogic(IIceCreamStorage iceCreamStorage, IComponentStorage componentStorage, IOrderStorage orderStorage,
-            IWarehouseStorage warehouseStorage, AbstractSaveToExcel saveToExcel, AbstractSaveToWord saveToWord, AbstractSaveToPdf saveToPdf,
-            AbstractSaveToWordWarehouses saveToWordWarehouses, AbstractSaveToExcelWarehouses saveToExcelWarehouses, AbstractSaveToPdfFull saveToPdfFull)
+            IWarehouseStorage warehouseStorage, AbstractSaveToExcel saveToExcel, AbstractSaveToWord saveToWord, AbstractSaveToPdf saveToPdf)
         {
             _iceCreamStorage = iceCreamStorage;
             _componentStorage = componentStorage;
@@ -44,10 +37,6 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
             _saveToExcel = saveToExcel;
             _saveToWord = saveToWord;
             _saveToPdf = saveToPdf;
-
-            _saveToWordWarehouses = saveToWordWarehouses;
-            _saveToExcelWarehouses = saveToExcelWarehouses;
-            _saveToPdfFull = saveToPdfFull;
         }
 
         public List<ReportWarehouseComponentViewModel> GetWarehouses()
@@ -166,7 +155,7 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
 
         public void SaveWarehousesToWordFile(ReportBindingModel model)
         {
-            _saveToWordWarehouses.CreateDoc(new WordInfo
+            _saveToWord.CreateDocWarehouses(new WordInfo
             {
                 FileName = model.FileName,
                 Title = "Список складов",
@@ -176,7 +165,7 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
 
         public void SaveWarehousesComponentToExcelFile(ReportBindingModel model)
         {
-            _saveToExcelWarehouses.CreateReport(new ExcelInfo
+            _saveToExcel.CreateReportWarehouses(new ExcelInfo
             {
                 FileName = model.FileName,
                 Title = "Список компонент по складам",
@@ -186,7 +175,7 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
 
         public void SaveOrdersFullToPdfFile(ReportBindingModel model)
         {
-            _saveToPdfFull.CreateDoc(new PdfInfo
+            _saveToPdf.CreateDocFullPeriod(new PdfInfo
             {
                 FileName = model.FileName,
                 Title = "Список заказов",

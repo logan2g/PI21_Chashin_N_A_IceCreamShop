@@ -69,11 +69,8 @@
     <Compile Include="BusinessLogics\ReportLogic.cs" />
     <Compile Include="BusinessLogics\WarehouseLogic.cs" />
     <Compile Include="OfficePackage\AbstractSaveToExcel.cs" />
-    <Compile Include="OfficePackage\AbstractSaveToExcelWarehouses.cs" />
     <Compile Include="OfficePackage\AbstractSaveToPdf.cs" />
-    <Compile Include="OfficePackage\AbstractSaveToPdfFull.cs" />
     <Compile Include="OfficePackage\AbstractSaveToWord.cs" />
-    <Compile Include="OfficePackage\AbstractSaveToWordWarehouses.cs" />
     <Compile Include="OfficePackage\HelperEnums\ExcelStyleInfoType.cs" />
     <Compile Include="OfficePackage\HelperEnums\PdfParagraphAlignmentType.cs" />
     <Compile Include="OfficePackage\HelperEnums\WordJustificationType.cs" />
