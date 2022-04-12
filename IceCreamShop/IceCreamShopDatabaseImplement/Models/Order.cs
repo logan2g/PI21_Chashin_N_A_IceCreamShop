@@ -12,7 +12,11 @@ namespace IceCreamShopDatabaseImplement.Models
 
         public int IceCreamId { get; set; }
 
-        public string OrderName { get; set; }
+        public int ClientId { get; set; }
+
+        public virtual Client Client { get; set; }
+
+        public virtual IceCream IceCream { get; set; }
 
         public string IceCreamName { get; set; }
 

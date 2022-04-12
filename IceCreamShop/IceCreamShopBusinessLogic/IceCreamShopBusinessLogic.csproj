@@ -62,6 +62,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogics\ClientLogic.cs" />
     <Compile Include="BusinessLogics\ComponentLogic.cs" />
     <Compile Include="BusinessLogics\IceCreamLogic.cs" />
     <Compile Include="BusinessLogics\OrderLogic.cs" />

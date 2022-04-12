@@ -36,14 +36,16 @@
             this.labelIceCream = new System.Windows.Forms.Label();
             this.ButtonSave = new System.Windows.Forms.Button();
             this.ButtonCancel = new System.Windows.Forms.Button();
+            this.labelUser = new System.Windows.Forms.Label();
+            this.comboBoxClient = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // textBoxSum
             // 
-            this.textBoxSum.Location = new System.Drawing.Point(85, 71);
+            this.textBoxSum.Location = new System.Drawing.Point(83, 71);
             this.textBoxSum.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxSum.Name = "textBoxSum";
-            this.textBoxSum.Size = new System.Drawing.Size(147, 20);
+            this.textBoxSum.Size = new System.Drawing.Size(149, 20);
             this.textBoxSum.TabIndex = 15;
             // 
             // textBoxCount
@@ -97,7 +99,7 @@
             // 
             // ButtonSave
             // 
-            this.ButtonSave.Location = new System.Drawing.Point(85, 96);
+            this.ButtonSave.Location = new System.Drawing.Point(85, 125);
             this.ButtonSave.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonSave.Name = "ButtonSave";
             this.ButtonSave.Size = new System.Drawing.Size(84, 23);
@@ -108,7 +110,7 @@
             // 
             // ButtonCancel
             // 
-            this.ButtonCancel.Location = new System.Drawing.Point(173, 96);
+            this.ButtonCancel.Location = new System.Drawing.Point(173, 125);
             this.ButtonCancel.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(59, 23);
@@ -117,11 +119,30 @@
             this.ButtonCancel.UseVisualStyleBackColor = true;
             this.ButtonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
+            // labelUser
+            // 
+            this.labelUser.AutoSize = true;
+            this.labelUser.Location = new System.Drawing.Point(11, 99);
+            this.labelUser.Name = "labelUser";
+            this.labelUser.Size = new System.Drawing.Size(43, 13);
+            this.labelUser.TabIndex = 16;
+            this.labelUser.Text = "Клиент";
+            // 
+            // comboBoxClient
+            // 
+            this.comboBoxClient.FormattingEnabled = true;
+            this.comboBoxClient.Location = new System.Drawing.Point(83, 96);
+            this.comboBoxClient.Name = "comboBoxClient";
+            this.comboBoxClient.Size = new System.Drawing.Size(147, 21);
+            this.comboBoxClient.TabIndex = 17;
+            // 
             // FormCreateOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(249, 129);
+            this.ClientSize = new System.Drawing.Size(238, 159);
+            this.Controls.Add(this.comboBoxClient);
+            this.Controls.Add(this.labelUser);
             this.Controls.Add(this.textBoxSum);
             this.Controls.Add(this.textBoxCount);
             this.Controls.Add(this.comboBoxIceCream);
@@ -148,5 +169,7 @@
         private System.Windows.Forms.Label labelIceCream;
         private System.Windows.Forms.Button ButtonSave;
         private System.Windows.Forms.Button ButtonCancel;
+        private System.Windows.Forms.Label labelUser;
+        private System.Windows.Forms.ComboBox comboBoxClient;
     }
 }
