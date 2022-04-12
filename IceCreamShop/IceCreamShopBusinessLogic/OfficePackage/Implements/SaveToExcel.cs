@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace IceCreamShopBusinessLogic.OfficePackage.Implements
 {
-    public class SaveToExcel : AbstractSaveToExcelWarehouses
+    public class SaveToExcel : AbstractSaveToExcel
     {
         private SpreadsheetDocument _spreadsheetDocument;
 

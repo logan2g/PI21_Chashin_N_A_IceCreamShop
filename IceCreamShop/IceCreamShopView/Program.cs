@@ -58,10 +58,6 @@ namespace IceCreamShopView
             currentContainer.RegisterType<AbstractSaveToWord, SaveToWord>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<AbstractSaveToPdf, SaveToPdf>(new HierarchicalLifetimeManager());
 
-            currentContainer.RegisterType<AbstractSaveToWordWarehouses, SaveToWord>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<AbstractSaveToExcelWarehouses, SaveToExcel>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<AbstractSaveToPdfFull, SaveToPdf>(new HierarchicalLifetimeManager());
-
             return currentContainer;
         }
     }
