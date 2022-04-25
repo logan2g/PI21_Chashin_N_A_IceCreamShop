@@ -35,7 +35,8 @@ namespace IceCreamShopListImplement.Imlements
             List<MessageInfoViewModel> result = new List<MessageInfoViewModel>();
             foreach (var messageInfo in source.MessageInfos)
             {
-                if (messageInfo.Subject.Contains(model.Subject))
+                if ((model.ClientId.HasValue && messageInfo.ClientId == model.ClientId) ||
+                (!model.ClientId.HasValue && messageInfo.DateDelivery.Date == model.DateDelivery.Date))
                 {
                     result.Add(CreateModel(messageInfo));
                 }

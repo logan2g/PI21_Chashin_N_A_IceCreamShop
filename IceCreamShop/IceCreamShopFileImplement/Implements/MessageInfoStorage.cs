@@ -1,20 +1,25 @@
-﻿using IceCreamShopContracts.StoragesContracts;
-using IceCreamShopContracts.ViewModels;
-using IceCreamShopContracts.BindingModels;
-using IceCreamShopDatabaseImplement.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using IceCreamShopContracts.BindingModels;
+using IceCreamShopContracts.StoragesContracts;
+using IceCreamShopContracts.ViewModels;
+using IceCreamShopFileImplement.Models;
 
-
-namespace IceCreamShopDatabaseImplement.Implements
+namespace IceCreamShopFileImplement.Implements
 {
     public class MessageInfoStorage : IMessageInfoStorage
     {
+        private readonly FileDataSingleton source;
+
+        public MessageInfoStorage()
+        {
+            source = FileDataSingleton.GetInstance();
+        }
+
         public List<MessageInfoViewModel> GetFullList()
         {
-            using var context = new IceCreamShopDatabase();
-            return context.MessageInfos
+            return source.MessageInfos
             .Select(rec => new MessageInfoViewModel
             {
                 MessageId = rec.MessageId,
@@ -32,13 +37,9 @@ namespace IceCreamShopDatabaseImplement.Implements
             {
                 return null;
             }
-
-            using var context = new IceCreamShopDatabase();
-            var client = context.Clients.FirstOrDefault(rec => rec.Id == model.ClientId);
-            return context.MessageInfos
+            return source.MessageInfos
             .Where(rec => (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
-            (!model.ClientId.HasValue && rec.DateDelivery.Date == model.DateDelivery.Date) || 
-            (client.Email.Equals(rec.SenderName)))
+            (!model.ClientId.HasValue && rec.DateDelivery.Date == model.DateDelivery.Date))
             .Select(rec => new MessageInfoViewModel
             {
                 MessageId = rec.MessageId,
@@ -52,15 +53,12 @@ namespace IceCreamShopDatabaseImplement.Implements
 
         public void Insert(MessageInfoBindingModel model)
         {
-            using var context = new IceCreamShopDatabase();
-            MessageInfo element = context.MessageInfos.FirstOrDefault(rec => rec.MessageId == model.MessageId);
-            
+            MessageInfo element = source.MessageInfos.FirstOrDefault(rec => rec.MessageId == model.MessageId);
             if (element != null)
             {
                 throw new Exception("Уже есть письмо с таким идентификатором");
             }
-
-            context.MessageInfos.Add(new MessageInfo
+            source.MessageInfos.Add(new MessageInfo
             {
                 MessageId = model.MessageId,
                 ClientId = model.ClientId,
@@ -69,7 +67,6 @@ namespace IceCreamShopDatabaseImplement.Implements
                 Subject = model.Subject,
                 Body = model.Body
             });
-            context.SaveChanges();
         }
     }
 }

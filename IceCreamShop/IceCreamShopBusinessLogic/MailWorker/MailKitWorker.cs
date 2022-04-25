@@ -72,10 +72,6 @@ namespace IceCreamShopBusinessLogic.MailWorker
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
                 finally
                 {
                     client.Disconnect(true);

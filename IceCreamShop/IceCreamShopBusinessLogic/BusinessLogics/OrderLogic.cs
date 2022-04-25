@@ -161,7 +161,7 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
                 Id = order.Id,
                 ClientId = order.ClientId,
                 IceCreamId = order.IceCreamId,
-                ImplementerId = model.ImplementerId,
+                ImplementerId = order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
@@ -176,7 +176,7 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
                     Id = order.ClientId
                 })?.Email,
                 Subject = $"Заказ №{order.Id}",
-                Text = $"Заказ №{order.Id} оплачен."
+                Text = $"Заказ №{order.Id} выдан."
             });
         }
 

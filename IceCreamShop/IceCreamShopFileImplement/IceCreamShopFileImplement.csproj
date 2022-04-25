@@ -46,6 +46,7 @@
     <Compile Include="Implements\ComponentStorage.cs" />
     <Compile Include="Implements\IceCreamStorage.cs" />
     <Compile Include="Implements\ImplementerStorage.cs" />
+    <Compile Include="Implements\MessageInfoStorage.cs" />
     <Compile Include="Implements\OrderStorage.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Component.cs" />
