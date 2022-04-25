@@ -3,6 +3,7 @@ using IceCreamShopContracts.BindingModels;
 using IceCreamShopContracts.BusinessLogicsContracts;
 using IceCreamShopContracts.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IceCreamShopRestApi.Controllers
 {
@@ -20,7 +21,7 @@ namespace IceCreamShopRestApi.Controllers
         }
 
         [HttpGet]
-        public List<WarehouseViewModel> GetWarehouses() => _warehouses.Read(null);
+        public List<WarehouseViewModel> GetWarehouses() => _warehouses.Read(null)?.ToList();
 
         [HttpPost]
         public void CreateWarehouse(WarehouseBindingModel model) => _warehouses.CreateOrUpdate(model);

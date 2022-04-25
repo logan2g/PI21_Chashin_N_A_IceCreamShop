@@ -99,8 +99,7 @@ namespace IceCreamShopWarehouseApp.Controllers
                 throw new Exception("Склад не найден");
             }
 
-            var storeHouse = APIClient.GetRequest<List<WarehouseViewModel>>(
-                $"api/warehouse/getwarehouses").FirstOrDefault(rec => rec.Id == id);
+            var storeHouse = APIClient.GetRequest<List<WarehouseViewModel>>($"api/warehouse/getwarehouses").FirstOrDefault(rec => rec.Id == id);
             if (storeHouse == null)
             {
                 throw new Exception("Склад не найден");
@@ -178,7 +177,7 @@ namespace IceCreamShopWarehouseApp.Controllers
             }
 
             var component = APIClient.GetRequest<List<WarehouseViewModel>>(
-                $"api/warehouse/getingredients").FirstOrDefault(rec => rec.Id == componentId);
+                $"api/warehouse/getcomponents").FirstOrDefault(rec => rec.Id == componentId);
 
             if (component == null)
             {
