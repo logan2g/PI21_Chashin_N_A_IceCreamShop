@@ -1,4 +1,6 @@
 using IceCreamShopBusinessLogic.BusinessLogics;
+using IceCreamShopBusinessLogic.MailWorker;
+using IceCreamShopContracts.BindingModels;
 using IceCreamShopContracts.BusinessLogicsContracts;
 using IceCreamShopContracts.StoragesContracts;
 using IceCreamShopDatabaseImplement.Implements;
@@ -8,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
+
 
 namespace IceCreamShopRestApi
 {
@@ -26,9 +30,11 @@ namespace IceCreamShopRestApi
             services.AddTransient<IClientStorage, ClientStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IIceCreamStorage, IceCreamStorage>();
+            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
 
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
+            services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
             services.AddTransient<IIceCreamLogic, IceCreamLogic>();
 
             services.AddControllers();
@@ -57,6 +63,17 @@ namespace IceCreamShopRestApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            var mailSender = app.ApplicationServices.GetService<AbstractMailWorker>();
+            mailSender.MailConfig(new MailConfigBindingModel
+            {
+                MailLogin = Configuration?.GetSection("MailLogin")?.ToString(),
+                MailPassword = Configuration?.GetSection("MailPassword")?.ToString(),
+                SmtpClientHost = Configuration?.GetSection("SmtpClientHost")?.ToString(),
+                SmtpClientPort = Convert.ToInt32(Configuration?.GetSection("SmtpClientPort")?.ToString()),
+                PopHost = Configuration?.GetSection("PopHost")?.ToString(),
+                PopPort = Convert.ToInt32(Configuration?.GetSection("PopPort")?.ToString())
             });
         }
     }

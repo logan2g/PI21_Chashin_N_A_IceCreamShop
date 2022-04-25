@@ -19,5 +19,8 @@ namespace IceCreamShopDatabaseImplement.Models
 
         [ForeignKey("ClientId")]
         public List<Order> Order { get; set; }
+
+        [ForeignKey("ClientId")]
+        public List<MessageInfo> MessageInfos { get; set; }
     }
 }
