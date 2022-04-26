@@ -21,6 +21,8 @@ namespace IceCreamShopDatabaseImplement.Implements
                     Id = rec.Id,
                     ClientId = rec.ClientId,
                     ClientFIO = context.Clients.FirstOrDefault(cl => cl.Id == rec.ClientId).ClientFIO,
+                    ImplementerId = rec.ImplementerId,
+                    ImplementerFIO = context.Implementers.FirstOrDefault(cl => cl.Id == rec.ImplementerId).ImplementerFIO,
                     IceCreamId = rec.IceCreamId,
                     IceCreamName = rec.IceCreamName,
                     Count = rec.Count,
@@ -46,14 +48,18 @@ namespace IceCreamShopDatabaseImplement.Implements
                 .Include(rec => rec.Client)
                 .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
             (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
-            (model.ClientId.HasValue && rec.ClientId == model.ClientId))
+            (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
+            (model.SearchStatus.HasValue && model.SearchStatus.Value == rec.Status) ||
+            (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
                     IceCreamId = rec.IceCreamId,
                     IceCreamName = rec.IceCreamName,
                     ClientId = rec.ClientId,
-                    ClientFIO = rec.Client.ClientFIO,
+                    ClientFIO = context.Clients.FirstOrDefault(cl => cl.Id == rec.ClientId).ClientFIO,
+                    ImplementerId = rec.ImplementerId,
+                    ImplementerFIO = context.Implementers.FirstOrDefault(cl => cl.Id == rec.ImplementerId).ImplementerFIO,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -78,7 +84,10 @@ namespace IceCreamShopDatabaseImplement.Implements
                     Id = order.Id,
                     IceCreamId = order.IceCreamId,
                     ClientId = order.ClientId,
+                    ClientFIO = context.Clients.FirstOrDefault(cl => cl.Id == order.ClientId).ClientFIO,
                     IceCreamName = order?.IceCreamName,
+                    ImplementerId = order?.ImplementerId,
+                    ImplementerFIO = context.Implementers.FirstOrDefault(cl => cl.Id == order.ImplementerId)?.ImplementerFIO,
                     Count = order.Count,
                     Sum = order.Sum,
                     Status = order.Status,
@@ -124,6 +133,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                 element.IceCreamId = model.IceCreamId;
                 element.ClientId = (int)model.ClientId;
                 element.IceCreamName = context.IceCreams.FirstOrDefault(pr => pr.Id == model.IceCreamId).IceCreamName;
+                element.ImplementerId = model.ImplementerId;
                 element.Count = model.Count;
                 element.Sum = model.Sum;
                 element.Status = model.Status;
@@ -157,39 +167,50 @@ namespace IceCreamShopDatabaseImplement.Implements
                 return null;
             }
 
-            //using (var context = new IceCreamShopDatabase())
-            //{
-                IceCream element = context.IceCreams.FirstOrDefault(rec => rec.Id == model.IceCreamId);
-                if (element != null)
+            IceCream element = context.IceCreams.FirstOrDefault(rec => rec.Id == model.IceCreamId);
+            if (element != null)
+            {
+                if (element.Orders == null)
                 {
-                    if (element.Orders == null)
-                    {
-                        element.Orders = new List<Order>();
-                    }
-                    element.Orders.Add(order);
-                    context.IceCreams.Update(element);
-                    context.SaveChanges();
+                    element.Orders = new List<Order>();
                 }
-                else
+                element.Orders.Add(order);
+                context.IceCreams.Update(element);
+                context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Элемент не найден");
+            }
+
+            Client client = context.Clients.FirstOrDefault(rec => rec.Id == model.ClientId);
+            if (client != null)
+            {
+                if (client.Order == null)
                 {
-                    throw new Exception("Элемент не найден");
+                    client.Order = new List<Order>();
                 }
-                Client client = context.Clients.FirstOrDefault(rec => rec.Id == model.ClientId);
-                if (client != null)
+                client.Order.Add(order);
+                context.Clients.Update(client);
+                context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Элемент не найден");
+            }
+
+            Implementer implementer = context.Implementers.FirstOrDefault(rec => rec.Id == model.ImplementerId);
+            if (implementer != null)
+            {
+                if (implementer.Order == null)
                 {
-                    if (client.Order == null)
-                    {
-                        client.Order = new List<Order>();
-                    }
-                    client.Order.Add(order);
-                    context.Clients.Update(client);
-                    context.SaveChanges();
+                    implementer.Order = new List<Order>();
                 }
-                else
-                {
-                    throw new Exception("Элемент не найден");
-                }
-            //}
+                implementer.Order.Add(order);
+                context.Implementers.Update(implementer);
+                context.SaveChanges();
+            }
+            
             return order;
         }
     }
