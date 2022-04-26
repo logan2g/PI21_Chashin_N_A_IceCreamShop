@@ -64,6 +64,37 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
                 Thread.Sleep(implementer.PauseTime);
             }
 
+            var ordersRequiringMaterials = await Task.Run(() => _orderLogic.Read(new OrderBindingModel
+            {
+                SearchStatus = OrderStatus.ТребуютсяМатериалы 
+            }));
+
+            foreach (var order in ordersRequiringMaterials)
+            {
+                try
+                {
+                    _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
+                    {
+                        OrderId = order.Id,
+                        ImplementerId = implementer.Id
+                    });
+                    if (_orderLogic.Read(new OrderBindingModel { Id = order.Id })?[0].Status == OrderStatus.ТребуютсяМатериалы)
+                    {
+                        continue;
+                    }
+                    Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);
+                    _orderLogic.FinishOrder(new ChangeStatusBindingModel
+                    {
+                        OrderId = order.Id
+                    });
+                    Thread.Sleep(implementer.PauseTime);
+                }
+                catch (Exception ex) 
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
             await Task.Run(() =>
             {
                 while (!orders.IsEmpty)
@@ -73,6 +104,11 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
                         // пытаемся назначить заказ на исполнителя 
                         _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
                         { OrderId = order.Id, ImplementerId = implementer.Id });
+
+                        if (_orderLogic.Read(new OrderBindingModel { Id = order.Id })?[0].Status == OrderStatus.ТребуютсяМатериалы)
+                        {
+                            continue;
+                        }
 
                         // делаем работу 
                         Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);

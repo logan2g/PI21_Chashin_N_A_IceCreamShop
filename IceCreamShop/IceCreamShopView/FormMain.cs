@@ -165,7 +165,7 @@ namespace IceCreamShopView
         {
             var form = Program.Container.Resolve<FormImplementers>();
             form.ShowDialog();
-            }
+            
         }
 
         private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)

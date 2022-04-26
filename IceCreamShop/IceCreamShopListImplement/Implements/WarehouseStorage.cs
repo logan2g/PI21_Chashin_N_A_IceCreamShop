@@ -84,7 +84,7 @@ namespace IceCreamShopListImplement.Implements
             source.Warehouses.Add(CreateModel(model, tempWarhouse));
         }
 
-        public void TakeFromWarehouse(IceCreamViewModel model, int count)
+        public bool TakeFromWarehouse(IceCreamViewModel model, int count)
         {
             throw new NotImplementedException();
         }

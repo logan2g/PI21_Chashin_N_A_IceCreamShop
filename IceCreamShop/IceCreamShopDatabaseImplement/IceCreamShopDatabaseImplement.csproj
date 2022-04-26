@@ -239,13 +239,9 @@
     <Compile Include="Implements\ImplementerStorage.cs" />
     <Compile Include="Implements\OrderStorage.cs" />
     <Compile Include="Implements\WarehouseStorage.cs" />
-    <Compile Include="Migrations\20220411065422_InitialCreate.cs" />
-    <Compile Include="Migrations\20220411065422_InitialCreate.designer.cs">
-      <DependentUpon>20220411065422_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20220410231628_Implementers.cs" />
-    <Compile Include="Migrations\20220410231628_Implementers.designer.cs">
-      <DependentUpon>20220410231628_Implementers.cs</DependentUpon>
+    <Compile Include="Migrations\20220426000735_InitialCreate.cs" />
+    <Compile Include="Migrations\20220426000735_InitialCreate.designer.cs">
+      <DependentUpon>20220426000735_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\IceCreamShopDatabaseModelSnapshot.cs" />
     <Compile Include="Models\Client.cs" />
