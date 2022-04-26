@@ -12,6 +12,6 @@ namespace IceCreamShopContracts.BusinessLogicsContracts
 
         void Delete(WarehouseBindingModel warehouse);
 
-        void AddComponents(WarehouseBindingModel model, int componentId, int count);
+        void AddComponents(WarehouseTopUpBindingModel model);
     }
 }

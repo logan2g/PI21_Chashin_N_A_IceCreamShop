@@ -28,8 +28,12 @@ namespace IceCreamShopFileImplement.Implements
             {
                 return null;
             }
-            return source.Orders.Where(rec => rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
-                .Select(CreateModel).ToList();
+            return source.Orders
+               .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+               (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
+               (model.ClientId.HasValue && rec.ClientId == model.ClientId))
+               .Select(CreateModel)
+               .ToList();
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -75,6 +79,7 @@ namespace IceCreamShopFileImplement.Implements
         private Order CreateModel(OrderBindingModel model, Order order)
         {
             order.IceCreamId = model.IceCreamId;
+            order.ClientId = (int)model.ClientId;
             order.Count = model.Count;
             order.Status = model.Status;
             order.Sum = model.Sum;
@@ -85,14 +90,16 @@ namespace IceCreamShopFileImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
-            string ResultSnackName = (from iceCream in source.IceCreams
+            string ResultIceCreamName = (from iceCream in source.IceCreams
                       where order.IceCreamId == iceCream.Id
                       select iceCream.IceCreamName).First();
             return new OrderViewModel
             {
                 Id = order.Id,
                 IceCreamId = order.IceCreamId,
-                IceCreamName = ResultSnackName,
+                ClientId = order.ClientId,
+                ClientFIO = order.ClientFIO,
+                IceCreamName = ResultIceCreamName,
                 Count = order.Count,
                 Status = order.Status,
                 Sum = order.Sum,

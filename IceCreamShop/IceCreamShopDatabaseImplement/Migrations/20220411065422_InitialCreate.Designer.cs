@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IceCreamShopDatabaseImplement.Migrations
 {
     [DbContext(typeof(IceCreamShopDatabase))]
-    [Migration("20220310192231_Hard_Lab_Migration")]
-    partial class Hard_Lab_Migration
+    [Migration("20220411065422_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,30 @@ namespace IceCreamShopDatabaseImplement.Migrations
                 .HasAnnotation("ProductVersion", "3.1.22")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("IceCreamShopDatabaseImplement.Models.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClientFIO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
 
             modelBuilder.Entity("IceCreamShopDatabaseImplement.Models.Component", b =>
                 {
@@ -88,6 +112,9 @@ namespace IceCreamShopDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -103,9 +130,6 @@ namespace IceCreamShopDatabaseImplement.Migrations
                     b.Property<string>("IceCreamName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OrderName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -113,6 +137,8 @@ namespace IceCreamShopDatabaseImplement.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("IceCreamId");
 
@@ -184,7 +210,13 @@ namespace IceCreamShopDatabaseImplement.Migrations
 
             modelBuilder.Entity("IceCreamShopDatabaseImplement.Models.Order", b =>
                 {
-                    b.HasOne("IceCreamShopDatabaseImplement.Models.IceCream", null)
+                    b.HasOne("IceCreamShopDatabaseImplement.Models.Client", "Client")
+                        .WithMany("Order")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IceCreamShopDatabaseImplement.Models.IceCream", "IceCream")
                         .WithMany("Orders")
                         .HasForeignKey("IceCreamId")
                         .OnDelete(DeleteBehavior.Cascade)

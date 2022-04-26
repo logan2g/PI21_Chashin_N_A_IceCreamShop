@@ -233,19 +233,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IceCreamShopDatabase.cs" />
+    <Compile Include="Implements\ClientStorage.cs" />
     <Compile Include="Implements\ComponentStorage.cs" />
     <Compile Include="Implements\IceCreamStorage.cs" />
     <Compile Include="Implements\OrderStorage.cs" />
     <Compile Include="Implements\WarehouseStorage.cs" />
-    <Compile Include="Migrations\20220225141300_InitialCreate.cs" />
-    <Compile Include="Migrations\20220225141300_InitialCreate.designer.cs">
-      <DependentUpon>20220225141300_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20220310192231_Hard_Lab_Migration.cs" />
-    <Compile Include="Migrations\20220310192231_Hard_Lab_Migration.designer.cs">
-      <DependentUpon>20220310192231_Hard_Lab_Migration.cs</DependentUpon>
+    <Compile Include="Migrations\20220411065422_InitialCreate.cs" />
+    <Compile Include="Migrations\20220411065422_InitialCreate.designer.cs">
+      <DependentUpon>20220411065422_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\IceCreamShopDatabaseModelSnapshot.cs" />
+    <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Component.cs" />
     <Compile Include="Models\IceCream.cs" />
     <Compile Include="Models\IceCreamComponent.cs" />

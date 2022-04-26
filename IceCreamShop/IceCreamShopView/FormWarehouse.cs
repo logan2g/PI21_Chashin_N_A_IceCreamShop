@@ -44,17 +44,15 @@ namespace IceCreamShopView
                     Id = id,
                     WarehouseName = textBoxName.Text,
                     ResponsiblePerson = textBoxResposiblePerson.Text,
-                    WarehouseComponents = new Dictionary<int, (string, int)>()
+                    //WarehouseComponents = new Dictionary<int, (string, int)>()
                 });
-                MessageBox.Show("Сохранение прошло успешно", "Сообщение",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

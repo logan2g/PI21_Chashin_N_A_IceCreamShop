@@ -18,6 +18,8 @@ namespace IceCreamShopFileImplement
 
         private readonly string IceCreamFileName = "IceCream.xml";
 
+        private readonly string ClientFileName = "Client.xml";
+
         private readonly string WarehouseFileName = "Warehouse.xml";
 
         public List<Component> Components { get; set; }
@@ -26,6 +28,8 @@ namespace IceCreamShopFileImplement
 
         public List<IceCream> IceCreams { get; set; }
 
+        public List<Client> Clients { get; set; }
+
         public List<Warehouse> Warehouses { get; set; }
 
         private FileDataSingleton()
@@ -33,6 +37,7 @@ namespace IceCreamShopFileImplement
             Components = LoadComponents();
             Orders = LoadOrders();
             IceCreams = LoadIceCreams();
+            Clients = LoadClients();
             Warehouses = LoadWarehouses();
         }
 
@@ -41,6 +46,7 @@ namespace IceCreamShopFileImplement
             SaveComponents();
             SaveOrders();
             SaveIceCreams();
+            SaveClients();
             SaveWarehouses();
         }
 
@@ -116,6 +122,27 @@ namespace IceCreamShopFileImplement
                         IceCreamName = elem.Element("IceCreamName").Value,
                         Price = Convert.ToDecimal(elem.Element("Price").Value),
                         IceCreamComponents = prodComp
+                    });
+                }
+            }
+            return list;
+        }
+
+        private List<Client> LoadClients()
+        {
+            var list = new List<Client>();
+            if (File.Exists(ClientFileName))
+            {
+                XDocument xDocument = XDocument.Load(ClientFileName);
+                var xElements = xDocument.Root.Elements("Client").ToList();
+                foreach(var client in xElements)
+                {
+                    list.Add(new Client
+                    {
+                        Id = Convert.ToInt32(client.Attribute("Id").Value),
+                        ClientFIO = client.Element("ClientFIO").Value,
+                        Email = client.Element("Email").Value,
+                        Password = client.Element("Password").Value
                     });
                 }
             }
@@ -208,6 +235,24 @@ namespace IceCreamShopFileImplement
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(IceCreamFileName);
+            }
+        }
+
+        private void SaveClients()
+        {
+            if(Clients != null)
+            {
+                var xElement = new XElement("Clients");
+                foreach(var client in Clients)
+                {
+                    xElement.Add(new XElement("Client"),
+                        new XAttribute("Id", client.Id),
+                        new XElement("ClientFIO", client.ClientFIO),
+                        new XElement("Email", client.Email),
+                        new XElement("Password", client.Password));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(ClientFileName);
             }
         }
 

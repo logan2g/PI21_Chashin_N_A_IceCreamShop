@@ -78,10 +78,12 @@ namespace IceCreamShopView
                 {
                     throw new Exception("Надо пополнять, а не уменьшать");
                 }
-                _warehouseLogic.AddComponents(new WarehouseBindingModel
+                _warehouseLogic.AddComponents(new WarehouseTopUpBindingModel
                 {
-                    Id = Convert.ToInt32(comboBoxWarehouse.SelectedValue)
-                }, Convert.ToInt32(comboBoxComponent.SelectedValue), Convert.ToInt32(textBoxCount.Text));
+                    WarehouseId = Convert.ToInt32(comboBoxWarehouse.SelectedValue),
+                    ComponentId = Convert.ToInt32(comboBoxComponent.SelectedValue),
+                    Count = Convert.ToInt32(textBoxCount.Text)
+                });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();

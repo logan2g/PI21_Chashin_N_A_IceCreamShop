@@ -13,6 +13,8 @@ namespace IceCreamShopListImplement
 
         public List<IceCream> IceCreams { get; set; }
 
+        public List<Client> Clients { get; set; }
+
         public List<Warehouse> Warehouses { get; set; }
 
         private DataListSingleton()
@@ -20,6 +22,7 @@ namespace IceCreamShopListImplement
             Components = new List<Component>();
             Orders = new List<Order>();
             IceCreams = new List<IceCream>();
+            Clients = new List<Client>();
             Warehouses = new List<Warehouse>();
         }
 
