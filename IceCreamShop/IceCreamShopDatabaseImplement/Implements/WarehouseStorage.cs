@@ -148,7 +148,7 @@ namespace IceCreamShopDatabaseImplement.Implements
             }
         }
 
-        public void TakeFromWarehouse(IceCreamViewModel model, int countInOrder)
+        public bool TakeFromWarehouse(IceCreamViewModel model, int countInOrder)
         {
             using (var context = new IceCreamShopDatabase())
             {
@@ -187,7 +187,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                         if (componentCount > 0)
                         {
                             transaction.Rollback();
-
+                            return false;
                             throw new Exception("Не хватает компонентов для продукта!");
                         }
                     }
@@ -195,6 +195,7 @@ namespace IceCreamShopDatabaseImplement.Implements
                     context.SaveChanges();
 
                     transaction.Commit();
+                    return true;
                 }
             }
         }

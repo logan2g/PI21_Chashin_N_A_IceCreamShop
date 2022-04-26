@@ -15,6 +15,8 @@ namespace IceCreamShopListImplement
 
         public List<Client> Clients { get; set; }
 
+        public List<Implementer> Implementers { get; set; }
+
         public List<Warehouse> Warehouses { get; set; }
 
         private DataListSingleton()
@@ -23,6 +25,7 @@ namespace IceCreamShopListImplement
             Orders = new List<Order>();
             IceCreams = new List<IceCream>();
             Clients = new List<Client>();
+            Implementers = new List<Implementer>();
             Warehouses = new List<Warehouse>();
         }
 

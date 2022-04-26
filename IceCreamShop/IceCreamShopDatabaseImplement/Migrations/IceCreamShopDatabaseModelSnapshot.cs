@@ -103,6 +103,28 @@ namespace IceCreamShopDatabaseImplement.Migrations
                     b.ToTable("IceCreamComponents");
                 });
 
+            modelBuilder.Entity("IceCreamShopDatabaseImplement.Models.Implementer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImplementerFIO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PauseTime")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkingTime")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Implementers");
+                });
+
             modelBuilder.Entity("IceCreamShopDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -128,6 +150,9 @@ namespace IceCreamShopDatabaseImplement.Migrations
                     b.Property<string>("IceCreamName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ImplementerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -139,6 +164,8 @@ namespace IceCreamShopDatabaseImplement.Migrations
                     b.HasIndex("ClientId");
 
                     b.HasIndex("IceCreamId");
+
+                    b.HasIndex("ImplementerId");
 
                     b.ToTable("Orders");
                 });
@@ -219,6 +246,10 @@ namespace IceCreamShopDatabaseImplement.Migrations
                         .HasForeignKey("IceCreamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("IceCreamShopDatabaseImplement.Models.Implementer", "Implementer")
+                        .WithMany("Order")
+                        .HasForeignKey("ImplementerId");
                 });
 
             modelBuilder.Entity("IceCreamShopDatabaseImplement.Models.WarehouseComponent", b =>

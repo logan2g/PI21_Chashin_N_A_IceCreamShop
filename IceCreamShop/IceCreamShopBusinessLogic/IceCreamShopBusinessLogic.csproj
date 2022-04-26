@@ -65,8 +65,10 @@
     <Compile Include="BusinessLogics\ClientLogic.cs" />
     <Compile Include="BusinessLogics\ComponentLogic.cs" />
     <Compile Include="BusinessLogics\IceCreamLogic.cs" />
+    <Compile Include="BusinessLogics\ImplementerLogic.cs" />
     <Compile Include="BusinessLogics\OrderLogic.cs" />
     <Compile Include="BusinessLogics\ReportLogic.cs" />
+    <Compile Include="BusinessLogics\WorkModeling.cs" />
     <Compile Include="BusinessLogics\WarehouseLogic.cs" />
     <Compile Include="OfficePackage\AbstractSaveToExcel.cs" />
     <Compile Include="OfficePackage\AbstractSaveToPdf.cs" />
