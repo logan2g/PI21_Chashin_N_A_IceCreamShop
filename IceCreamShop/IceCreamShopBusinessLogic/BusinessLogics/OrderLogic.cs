@@ -138,7 +138,7 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
                 Id = order.Id,
                 ClientId = order.ClientId,
                 IceCreamId = order.IceCreamId,
-                ImplementerId = model.ImplementerId,
+                ImplementerId = order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
