@@ -48,7 +48,7 @@ namespace IceCreamShopView
             });
 
             // создаем таймер 
-            var timer = new System.Threading.Timer(new TimerCallback(MailCheck), null, 0, 1000);
+            var timer = new System.Threading.Timer(new TimerCallback(MailCheck), null, 0, 100000);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(Container.Resolve<FormMain>());
