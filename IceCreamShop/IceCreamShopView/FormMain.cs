@@ -192,5 +192,11 @@ namespace IceCreamShopView
             var form = Program.Container.Resolve<FormReportOrders>(new Unity.Resolution.ResolverOverride[] { new Unity.Resolution.ParameterOverride("fullPeriod", true) });
             form.ShowDialog();
         }
+
+        private void письмаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormMails>();
+            form.ShowDialog();
+        }
     }
 }

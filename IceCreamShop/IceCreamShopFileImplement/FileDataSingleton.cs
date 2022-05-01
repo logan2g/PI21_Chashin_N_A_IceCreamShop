@@ -22,6 +22,8 @@ namespace IceCreamShopFileImplement
 
         private readonly string ImplementerFileName = "Implemeter.xml";
 
+        private readonly string MailsFileName = "Mails.xml";
+
         private readonly string WarehouseFileName = "Warehouse.xml";
 
         public List<Component> Components { get; set; }
@@ -31,6 +33,8 @@ namespace IceCreamShopFileImplement
         public List<IceCream> IceCreams { get; set; }
 
         public List<Client> Clients { get; set; }
+
+        public List<MessageInfo> MessageInfos { get; set; }
 
         public List<Implementer> Implementers { get; set; }
 
@@ -43,6 +47,7 @@ namespace IceCreamShopFileImplement
             IceCreams = LoadIceCreams();
             Clients = LoadClients();
             Implementers = LoadImplementers();
+            MessageInfos = LoadMessageInfos();
             Warehouses = LoadWarehouses();
         }
 
@@ -53,6 +58,7 @@ namespace IceCreamShopFileImplement
             SaveIceCreams();
             SaveClients();
             SaveImplementers();
+            SaveMessageInfos();
             SaveWarehouses();
         }
 
@@ -63,6 +69,30 @@ namespace IceCreamShopFileImplement
                 instance = new FileDataSingleton();
             }
             return instance;
+        }
+
+        private List<MessageInfo> LoadMessageInfos()
+        {
+            var list = new List<MessageInfo>();
+            if (File.Exists(MailsFileName))
+            {
+                XDocument xDocument = XDocument.Load(MailsFileName);
+                var xElements = xDocument.Root.Elements("MessageInfo").ToList();
+
+                foreach (var elem in xElements)
+                {
+                    list.Add(new MessageInfo
+                    {
+                        MessageId = elem.Attribute("Id").Value,
+                        ClientId = Convert.ToInt32(elem.Element("ClientId").Value),
+                        SenderName = elem.Element("ClientId").Value,
+                        Subject = elem.Element("Subject").Value,
+                        Body = elem.Element("Body").Value,
+                        DateDelivery = Convert.ToDateTime(elem.Element("DateDelivery").Value)
+                    });
+                }
+            }
+            return list;
         }
 
         private List<Component> LoadComponents()
@@ -174,6 +204,26 @@ namespace IceCreamShopFileImplement
                 }
             }
             return list;
+        }
+
+        private void SaveMessageInfos()
+        {
+            if (MessageInfos != null)
+            {
+                var xElement = new XElement("MessageInfo");
+                foreach (var messageInfo in MessageInfos)
+                {
+                    xElement.Add(new XElement("MessageInfo",
+                    new XAttribute("MessageId", messageInfo.MessageId),
+                    new XElement("Subject", messageInfo.Subject),
+                    new XElement("SenderName", messageInfo.SenderName),
+                    new XElement("Body", messageInfo.Body),
+                    new XElement("ClientId", messageInfo.ClientId),
+                    new XElement("DateDelivery", messageInfo.DateDelivery)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(MailsFileName);
+            }
         }
 
         private List<Warehouse> LoadWarehouses()

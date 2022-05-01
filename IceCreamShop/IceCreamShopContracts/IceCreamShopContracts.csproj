@@ -47,6 +47,9 @@
     <Compile Include="BindingModels\CreateOrderBindingModel.cs" />
     <Compile Include="BindingModels\IceCreamBindingModel.cs" />
     <Compile Include="BindingModels\ImplementerBindingModel.cs" />
+    <Compile Include="BindingModels\MailConfigBindingModel.cs" />
+    <Compile Include="BindingModels\MailSendInfoBindingModel.cs" />
+    <Compile Include="BindingModels\MessageInfoBindingModel.cs" />
     <Compile Include="BindingModels\OrderBindingModel.cs" />
     <Compile Include="BindingModels\ReportBindingModel.cs" />
     <Compile Include="BindingModels\WarehouseTopUpBindingModel.cs" />
@@ -55,6 +58,7 @@
     <Compile Include="BusinessLogicsContracts\IComponentLogic.cs" />
     <Compile Include="BusinessLogicsContracts\IIceCreamLogic.cs" />
     <Compile Include="BusinessLogicsContracts\IImplementerLogic.cs" />
+    <Compile Include="BusinessLogicsContracts\IMessageInfoLogic.cs" />
     <Compile Include="BusinessLogicsContracts\IOrderLogic.cs" />
     <Compile Include="BusinessLogicsContracts\IWarehouseLogic.cs" />
     <Compile Include="BusinessLogicsContracts\IReportLogic.cs" />
@@ -64,6 +68,7 @@
     <Compile Include="StoragesContracts\IClientStorage.cs" />
     <Compile Include="StoragesContracts\IComponentStorage.cs" />
     <Compile Include="StoragesContracts\IImplementerStorage.cs" />
+    <Compile Include="StoragesContracts\IMessageInfoStorage.cs" />
     <Compile Include="StoragesContracts\IOrderStorage.cs" />
     <Compile Include="StoragesContracts\IIceCreamStorage.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
@@ -71,6 +76,7 @@
     <Compile Include="ViewModels\ComponentViewModel.cs" />
     <Compile Include="ViewModels\IceCreamViewModel.cs" />
     <Compile Include="ViewModels\ImplementerViewModel.cs" />
+    <Compile Include="ViewModels\MessageInfoViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ReportWarehouseComponentViewModel.cs" />
     <Compile Include="ViewModels\WarehouseViewModel.cs" />

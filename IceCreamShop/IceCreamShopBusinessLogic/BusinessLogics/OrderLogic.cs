@@ -3,6 +3,7 @@ using IceCreamShopContracts.BusinessLogicsContracts;
 using IceCreamShopContracts.StoragesContracts;
 using IceCreamShopContracts.ViewModels;
 using IceCreamShopContracts.Enums;
+using IceCreamShopBusinessLogic.MailWorker;
 using System;
 using System.Collections.Generic;
 
@@ -11,8 +12,11 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
     public class OrderLogic : IOrderLogic
     {
         private readonly IOrderStorage _orderStorage;
+        private readonly IClientStorage _clientStorage;
+        private readonly AbstractMailWorker _mailWorker;
         private readonly object locker = new object();
 
+        public OrderLogic(IOrderStorage orderStorage, AbstractMailWorker mailWorker, IClientStorage clientStorage)
         private readonly IWarehouseStorage _warehouseStorage;
 
         private readonly IIceCreamStorage _iceCreamStorage;
@@ -20,6 +24,8 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
         public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage, IIceCreamStorage iceCreamStorage)
         {
             _orderStorage = orderStorage;
+            _mailWorker = mailWorker;
+            _clientStorage = clientStorage;
             _warehouseStorage = warehouseStorage;
             _iceCreamStorage = iceCreamStorage;
         }
@@ -47,6 +53,16 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
                 Status = OrderStatus.Принят
+            });
+
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = model.ClientId
+                })?.Email,
+                Subject = $"Новый заказ",
+                Text = $"Заказ от {DateTime.Now} на сумму {model.Sum:N2} принят."
             });
         }
 
@@ -79,6 +95,18 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
                     Sum = order.Sum,
                     DateCreate = order.DateCreate,
                     DateImplement = DateTime.Now,
+                    Status = OrderStatus.Выполняется
+                });
+
+                _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+                {
+                    MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                    {
+                        Id = order.ClientId
+                    })?.Email,
+                    Subject = $"Заказ №{order.Id}",
+                    Text = $"Заказ №{order.Id} передан в работу."
+                });
                     Status = OrderStatus.Выполняется,
                     ClientId = order.ClientId
                 };
@@ -117,6 +145,16 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Готов
             });
+
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = order.ClientId
+                })?.Email,
+                Subject = $"Заказ №{order.Id}",
+                Text = $"Заказ №{order.Id} выполнен."
+            });
         }
 
         public void DeliveryOrder(ChangeStatusBindingModel model)
@@ -144,6 +182,16 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Выдан
+            });
+
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = order.ClientId
+                })?.Email,
+                Subject = $"Заказ №{order.Id}",
+                Text = $"Заказ №{order.Id} выдан."
             });
         }
 
