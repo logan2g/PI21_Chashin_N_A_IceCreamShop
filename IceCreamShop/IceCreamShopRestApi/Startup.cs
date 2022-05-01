@@ -39,10 +39,10 @@ namespace IceCreamShopRestApi
             services.AddTransient<IWarehouseLogic, WarehouseLogic>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IIceCreamLogic, IceCreamLogic>();
+            services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
 
             services.AddSingleton<AbstractMailWorker, MailKitWorker>();
 
-            services.AddControllers().AddNewtonsoftJson();
             services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {

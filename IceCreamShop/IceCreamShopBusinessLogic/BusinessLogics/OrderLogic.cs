@@ -15,13 +15,11 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
         private readonly IClientStorage _clientStorage;
         private readonly AbstractMailWorker _mailWorker;
         private readonly object locker = new object();
-
-        public OrderLogic(IOrderStorage orderStorage, AbstractMailWorker mailWorker, IClientStorage clientStorage)
         private readonly IWarehouseStorage _warehouseStorage;
-
         private readonly IIceCreamStorage _iceCreamStorage;
 
-        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage, IIceCreamStorage iceCreamStorage)
+        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage, 
+            IIceCreamStorage iceCreamStorage, AbstractMailWorker mailWorker, IClientStorage clientStorage)
         {
             _orderStorage = orderStorage;
             _mailWorker = mailWorker;
@@ -92,11 +90,12 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
                     IceCreamId = order.IceCreamId,
                     ImplementerId = model.ImplementerId,
                     Count = order.Count,
+                    ClientId = order.ClientId,
                     Sum = order.Sum,
                     DateCreate = order.DateCreate,
                     DateImplement = DateTime.Now,
                     Status = OrderStatus.Выполняется
-                });
+                };
 
                 _mailWorker.MailSendAsync(new MailSendInfoBindingModel
                 {
@@ -107,9 +106,6 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
                     Subject = $"Заказ №{order.Id}",
                     Text = $"Заказ №{order.Id} передан в работу."
                 });
-                    Status = OrderStatus.Выполняется,
-                    ClientId = order.ClientId
-                };
                 if (!_warehouseStorage.TakeFromWarehouse(_iceCreamStorage.GetElement(new IceCreamBindingModel { Id = order.IceCreamId }), order.Count))
                 {
                     orderModel.Status = OrderStatus.ТребуютсяМатериалы;
