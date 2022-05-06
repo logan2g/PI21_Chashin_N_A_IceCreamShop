@@ -113,6 +113,7 @@ namespace IceCreamShopView
                 form.ShowDialog();
                 LoadData();
             }
+            Program.ConfigGrid(_logic.Read(null), dataGridView);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
+using IceCreamShopContracts.Attributes;
 
 namespace IceCreamShopContracts.ViewModels
 {
@@ -7,19 +7,20 @@ namespace IceCreamShopContracts.ViewModels
     {
         public string MessageId { get; set; }
 
+        [Column(title: "Отправитель", width: 100)]
         [DisplayName("Прочитано")]
         public bool IsRead { get; set; }
 
         [DisplayName("Отправитель")]
         public string SenderName { get; set; }
 
-        [DisplayName("Дата письма")]
+        [Column(title: "Дата письма", width: 50)]
         public DateTime DateDelivery { get; set; }
 
-        [DisplayName("Заголовок")]
+        [Column(title: "Заголовок", width: 150)]
         public string Subject { get; set; }
 
-        [DisplayName("Текст")]
+        [Column(title: "Текст", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string Body { get; set; }
 
         [DisplayName("Ответ")]
