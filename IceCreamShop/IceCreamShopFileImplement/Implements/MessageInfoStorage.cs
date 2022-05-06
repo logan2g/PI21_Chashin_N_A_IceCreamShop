@@ -20,14 +20,7 @@ namespace IceCreamShopFileImplement.Implements
         public List<MessageInfoViewModel> GetFullList()
         {
             return source.MessageInfos
-            .Select(rec => new MessageInfoViewModel
-            {
-                MessageId = rec.MessageId,
-                SenderName = rec.SenderName,
-                DateDelivery = rec.DateDelivery,
-                Subject = rec.Subject,
-                Body = rec.Body
-            })
+            .Select(CreateModel)
             .ToList();
         }
 
@@ -40,14 +33,7 @@ namespace IceCreamShopFileImplement.Implements
             return source.MessageInfos
             .Where(rec => (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
             (!model.ClientId.HasValue && rec.DateDelivery.Date == model.DateDelivery.Date))
-            .Select(rec => new MessageInfoViewModel
-            {
-                MessageId = rec.MessageId,
-                SenderName = rec.SenderName,
-                DateDelivery = rec.DateDelivery,
-                Subject = rec.Subject,
-                Body = rec.Body
-            })
+            .Select(CreateModel)
             .ToList();
         }
 
@@ -58,6 +44,7 @@ namespace IceCreamShopFileImplement.Implements
             {
                 throw new Exception("Уже есть письмо с таким идентификатором");
             }
+
             source.MessageInfos.Add(new MessageInfo
             {
                 MessageId = model.MessageId,
@@ -65,8 +52,41 @@ namespace IceCreamShopFileImplement.Implements
                 SenderName = model.FromMailAddress,
                 DateDelivery = model.DateDelivery,
                 Subject = model.Subject,
-                Body = model.Body
+                Body = model.Body,
+                IsRead = false
             });
+        }
+
+        public void Update(MessageInfoBindingModel model)
+        {
+            MessageInfo element = source.MessageInfos.FirstOrDefault(rec => rec.MessageId == model.MessageId);
+            if (element == null)
+            {
+                throw new Exception("Не найдено письмо с таким идентификатором");
+            }
+
+            if (model.IsRead.HasValue)
+            {
+                element.IsRead = model.IsRead.Value;
+            }
+
+            if (!string.IsNullOrEmpty(model.Reply))
+            {
+                element.ReplyText = model.Reply;
+            }
+        }
+
+        private MessageInfoViewModel CreateModel(MessageInfo message)
+        {
+            return new MessageInfoViewModel
+            {
+                MessageId = message.MessageId,
+                SenderName = message.SenderName,
+                DateDelivery = message.DateDelivery,
+                Subject = message.Subject,
+                Body = message.Body,
+                Reply = message.ReplyText
+            };
         }
     }
 }

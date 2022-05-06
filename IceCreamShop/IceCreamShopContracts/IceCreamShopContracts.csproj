@@ -78,6 +78,7 @@
     <Compile Include="ViewModels\ImplementerViewModel.cs" />
     <Compile Include="ViewModels\MessageInfoViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\PageViewModel.cs" />
     <Compile Include="ViewModels\ReportWarehouseComponentViewModel.cs" />
     <Compile Include="ViewModels\WarehouseViewModel.cs" />
     <Compile Include="ViewModels\ReportIceCreamComponentViewModel.cs" />

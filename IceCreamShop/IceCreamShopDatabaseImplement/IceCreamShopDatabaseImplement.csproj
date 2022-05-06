@@ -240,13 +240,17 @@
     <Compile Include="Implements\MessageInfoStorage.cs" />
     <Compile Include="Implements\OrderStorage.cs" />
     <Compile Include="Implements\WarehouseStorage.cs" />
+    <Compile Include="Migrations\20220425131629_Messages.cs" />
+    <Compile Include="Migrations\20220425131629_Messages.designer.cs">
+      <DependentUpon>20220425131629_Messages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\20220426000735_InitialCreate.cs" />
     <Compile Include="Migrations\20220426000735_InitialCreate.designer.cs">
       <DependentUpon>20220426000735_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20220425131629_Messages.cs" />
-    <Compile Include="Migrations\20220425131629_Messages.designer.cs">
-      <DependentUpon>20220425131629_Messages.cs</DependentUpon>
+    <Compile Include="Migrations\20220506144152_Mails.cs" />
+    <Compile Include="Migrations\20220506144152_Mails.designer.cs">
+      <DependentUpon>20220506144152_Mails.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\IceCreamShopDatabaseModelSnapshot.cs" />
     <Compile Include="Models\Client.cs" />

@@ -18,6 +18,10 @@ namespace IceCreamShopDatabaseImplement.Models
 
         public string Body { get; set; }
 
+        public string ReplyText { get; set; }
+
+        public bool IsRead { get; set; }
+
         public virtual Client Client { get; set; }
     }
 }

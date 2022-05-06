@@ -38,6 +38,7 @@ namespace IceCreamShopRestApi.Controllers
         public void UpdateData(ClientBindingModel model) => _clientLogic.CreateOrUpdate(model);
 
         [HttpGet]
-        public List<MessageInfoViewModel> GetMessages(int clientId) => _messageLogic.Read(new MessageInfoBindingModel { ClientId = clientId });
+        public List<MessageInfoViewModel> GetMessages(int clientId, int pageNumber) => 
+            _messageLogic.Read(new MessageInfoBindingModel { ClientId = clientId, PageNumber = pageNumber });
     }
 }

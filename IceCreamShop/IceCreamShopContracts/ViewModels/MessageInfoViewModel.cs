@@ -7,6 +7,9 @@ namespace IceCreamShopContracts.ViewModels
     {
         public string MessageId { get; set; }
 
+        [DisplayName("Прочитано")]
+        public bool IsRead { get; set; }
+
         [DisplayName("Отправитель")]
         public string SenderName { get; set; }
 
@@ -18,5 +21,8 @@ namespace IceCreamShopContracts.ViewModels
 
         [DisplayName("Текст")]
         public string Body { get; set; }
+
+        [DisplayName("Ответ")]
+        public string Reply { get; set; }
     }
 }

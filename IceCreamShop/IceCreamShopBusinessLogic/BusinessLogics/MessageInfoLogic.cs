@@ -27,7 +27,14 @@ namespace IceCreamShopBusinessLogic.BusinessLogics
 
         public void CreateOrUpdate(MessageInfoBindingModel model)
         {
-            _messageInfoStorage.Insert(model);
+            if (model.IsRead.HasValue || !string.IsNullOrEmpty(model.Reply))
+            {
+                _messageInfoStorage.Update(model);
+            }
+            else
+            {
+                _messageInfoStorage.Insert(model);
+            }
         }
     }
 }

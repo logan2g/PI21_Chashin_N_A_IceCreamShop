@@ -44,22 +44,6 @@ namespace IceCreamShopListImplement.Imlements
             return result;
         }
 
-        public MessageInfoViewModel GetElement(MessageInfoBindingModel model)
-        {
-            if (model == null)
-            {
-                return null;
-            }
-            foreach (var messageInfo in source.MessageInfos)
-            {
-                if (messageInfo.MessageId == model.MessageId)
-                {
-                    return CreateModel(messageInfo);
-                }
-            }
-            return null;
-        }
-
         public void Insert(MessageInfoBindingModel model)
         {
             MessageInfo tempMessageInfo = new MessageInfo { MessageId = "1" };
@@ -91,25 +75,14 @@ namespace IceCreamShopListImplement.Imlements
             CreateModel(model, tempMessageInfo);
         }
 
-        public void Delete(MessageInfoBindingModel model)
-        {
-            for (int i = 0; i < source.MessageInfos.Count; ++i)
-            {
-                if (source.MessageInfos[i].MessageId == model.MessageId)
-                {
-                    source.MessageInfos.RemoveAt(i);
-                    return;
-                }
-            }
-            throw new Exception("Элемент не найден");
-        }
-
         private MessageInfo CreateModel(MessageInfoBindingModel model, MessageInfo messageInfo)
         {
             messageInfo.Subject = model.Subject;
             messageInfo.ClientId = model.ClientId;
             messageInfo.Body = model.Body;
             messageInfo.DateDelivery = model.DateDelivery;
+            messageInfo.IsRead = model.IsRead.Value;
+            messageInfo.ReplyText = model.Reply;
             return messageInfo;
         }
 
@@ -121,7 +94,9 @@ namespace IceCreamShopListImplement.Imlements
                 SenderName = messageInfo.SenderName,
                 Subject = messageInfo.Subject,
                 Body = messageInfo.Body,
-                DateDelivery = messageInfo.DateDelivery
+                DateDelivery = messageInfo.DateDelivery,
+                IsRead = messageInfo.IsRead,
+                Reply = messageInfo.ReplyText
             };
         }
     }

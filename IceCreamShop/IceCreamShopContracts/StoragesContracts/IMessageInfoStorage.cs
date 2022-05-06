@@ -11,5 +11,7 @@ namespace IceCreamShopContracts.StoragesContracts
         List<MessageInfoViewModel> GetFilteredList(MessageInfoBindingModel model);
 
         void Insert(MessageInfoBindingModel model);
+
+        void Update(MessageInfoBindingModel model);
     }
 }

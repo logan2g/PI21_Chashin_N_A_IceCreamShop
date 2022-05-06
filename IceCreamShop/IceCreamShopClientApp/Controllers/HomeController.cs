@@ -18,6 +18,7 @@ namespace IceCreamShopClientApp.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             if (Program.Client == null)
@@ -27,14 +28,47 @@ namespace IceCreamShopClientApp.Controllers
             return View(APIClient.GetRequest<List<OrderViewModel>>($"api/main/getorders?clientId={Program.Client.Id}"));
         }
 
-        public IActionResult Mails()
+        [HttpGet]
+        public IActionResult Mails(int pageNumber)
         {
             if (Program.Client == null)
             {
                 return Redirect("~/Home/Enter");
             }
-            var model = APIClient.GetRequest<List<MessageInfoViewModel>>($"api/client/getmessages?clientId={Program.Client.Id}");
+
+            List<MessageInfoViewModel> model = new List<MessageInfoViewModel>();
+            if (pageNumber > 0)
+            {
+                model = APIClient.GetRequest<List<MessageInfoViewModel>>($"api/client/getmessages?clientId={Program.Client.Id}&pageNumber={pageNumber}");
+            }
+
+            if (model.Count == 0 && Program.PageNumber != 0)
+            {
+                model = APIClient.GetRequest<List<MessageInfoViewModel>>($"api/client/getmessages?clientId={Program.Client.Id}&pageNumber={Program.PageNumber}");
+            }
+            else
+            {
+                Program.PageNumber = pageNumber;
+            }
+            ViewBag.Id = Program.PageNumber;
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult NextMailsPage()
+        {
+            return Redirect($"~/Home/Mails?pageNumber={Program.PageNumber + 1}");
+        }
+
+        [HttpGet]
+        public IActionResult PrevMailsPage()
+        {
+            if (Program.PageNumber > 1)
+            {
+                return Redirect($"~/Home/Mails?pageNumber={Program.PageNumber - 1}");
+            }
+
+            return Redirect($"~/Home/Mails?pageNumber={Program.PageNumber}");
         }
 
         [HttpGet]
