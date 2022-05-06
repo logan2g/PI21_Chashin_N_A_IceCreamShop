@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace IceCreamShopView
 {
@@ -55,17 +56,22 @@ namespace IceCreamShopView
             }
             try
             {
+                MethodInfo method = null;
                 List<ReportOrderViewModel> dataSource = null;
                 if (_fullPeriod)
                 {
-                    dataSource = _logic.GetOrdersFull();
+                    method = _logic.GetType().GetMethod("GetOrdersFull");
+                    dataSource = (List<ReportOrderViewModel>)method.Invoke(_logic, new object[] { });
                 }
                 else
                 {
-                    dataSource = _logic.GetOrders(new ReportBindingModel
+                    method = _logic.GetType().GetMethod("GetOrders");
+                    dataSource = (List<ReportOrderViewModel>)method.Invoke(_logic, new object[]
+                    {new ReportBindingModel
                     {
                         DateFrom = dateTimePickerFrom.Value,
                         DateTo = dateTimePickerTo.Value
+                    }
                     });
                 }
                 var source = new ReportDataSource("DataSetOrders", dataSource);
@@ -97,21 +103,24 @@ namespace IceCreamShopView
             {
                 try
                 {
+                    MethodInfo method = null;
                     if (_fullPeriod)
                     {
-                        _logic.SaveOrdersFullToPdfFile(new ReportBindingModel
+                        method = _logic.GetType().GetMethod("SaveOrdersFullToPdfFile");
+                        method.Invoke(_logic, new object[] { new ReportBindingModel
                         {
                             FileName = dialog.FileName
-                        });
+                        } });
                     }
                     else
                     {
-                        _logic.SaveOrdersByDateToPdfFile(new ReportBindingModel
+                        method = _logic.GetType().GetMethod("SaveOrdersByDateToPdfFile");
+                        method.Invoke(_logic, new object[] { new ReportBindingModel
                         {
                             FileName = dialog.FileName,
                             DateFrom = dateTimePickerFrom.Value,
                             DateTo = dateTimePickerTo.Value
-                        });
+                        } });
                     }
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

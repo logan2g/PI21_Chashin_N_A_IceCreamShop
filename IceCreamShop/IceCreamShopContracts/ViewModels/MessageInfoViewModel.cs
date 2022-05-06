@@ -7,11 +7,10 @@ namespace IceCreamShopContracts.ViewModels
     {
         public string MessageId { get; set; }
 
-        [Column(title: "Отправитель", width: 100)]
-        [DisplayName("Прочитано")]
+        [Column(title: "Прочитано", width: 60)]
         public bool IsRead { get; set; }
 
-        [DisplayName("Отправитель")]
+        [Column(title: "Отправитель", width: 100)]
         public string SenderName { get; set; }
 
         [Column(title: "Дата письма", width: 50)]
@@ -23,7 +22,7 @@ namespace IceCreamShopContracts.ViewModels
         [Column(title: "Текст", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string Body { get; set; }
 
-        [DisplayName("Ответ")]
+        [Column(title: "Ответ", width: 100)]
         public string Reply { get; set; }
     }
 }

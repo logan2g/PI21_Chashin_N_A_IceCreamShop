@@ -2,6 +2,7 @@
 using IceCreamShopContracts.BusinessLogicsContracts;
 using System;
 using System.Windows.Forms;
+using System.Reflection;
 using Unity;
 
 namespace IceCreamShopView
@@ -110,10 +111,11 @@ namespace IceCreamShopView
             using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                _reportLogic.SaveIceCreamsToWordFile(new ReportBindingModel
+                MethodInfo method = _reportLogic.GetType().GetMethod("SaveIceCreamsToWordFile");
+                method.Invoke(_reportLogic, new object[]{new ReportBindingModel
                 {
                     FileName = dialog.FileName
-                });
+                }});
                 MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -167,10 +169,11 @@ namespace IceCreamShopView
             using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                _reportLogic.SaveWarehousesToWordFile(new ReportBindingModel
+                MethodInfo method = _reportLogic.GetType().GetMethod("SaveWarehousesToWordFile");
+                method.Invoke(_reportLogic, new object[]{new ReportBindingModel
                 {
                     FileName = dialog.FileName
-                });
+                } });
                 MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }

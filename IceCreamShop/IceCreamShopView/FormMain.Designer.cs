@@ -108,8 +108,7 @@
             this.отчетыToolStripMenuItem,
             this.запускРаботToolStripMenuItem,
             this.письмаToolStripMenuItem,
-            this.создатьБекапToolStripMenuItem});
-            this.письмаToolStripMenuItem,
+            this.создатьБекапToolStripMenuItem,
             this.пополнениеСкладовToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Reflection;
+using System.Collections.Generic;
 using IceCreamShopContracts.BindingModels;
 using IceCreamShopContracts.BusinessLogicsContracts;
+using IceCreamShopContracts.ViewModels;
 
 namespace IceCreamShopView
 {
@@ -19,7 +22,8 @@ namespace IceCreamShopView
         {
             try
             {
-                var dict = _logic.GetIceCreams();
+                MethodInfo method = _logic.GetType().GetMethod("GetIceCreams");
+                List<ReportIceCreamComponentViewModel> dict = (List<ReportIceCreamComponentViewModel>) method.Invoke(_logic, new object[] { });
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
@@ -48,10 +52,11 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    _logic.SaveIceCreamComponentToExcelFile(new ReportBindingModel
+                    MethodInfo method = _logic.GetType().GetMethod("SaveIceCreamComponentToExcelFile");
+                    method.Invoke(_logic, new object[] { new ReportBindingModel
                     {
                         FileName = dialog.FileName
-                    });
+                    } });
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
