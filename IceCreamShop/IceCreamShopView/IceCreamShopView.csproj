@@ -314,6 +314,18 @@
     <Compile Include="FormImplementers.Designer.cs">
       <DependentUpon>FormImplementers.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMailReply.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMailReply.Designer.cs">
+      <DependentUpon>FormMailReply.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMails.designer.cs">
+      <DependentUpon>FormMails.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -385,6 +397,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormImplementers.resx">
       <DependentUpon>FormImplementers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMailReply.resx">
+      <DependentUpon>FormMailReply.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMails.resx">
+      <DependentUpon>FormMails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
