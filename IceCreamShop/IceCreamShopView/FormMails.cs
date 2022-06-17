@@ -26,19 +26,11 @@ namespace IceCreamShopView
 
         private void LoadData()
         {
-            var list = _logic.Read(new MessageInfoBindingModel
+            Program.ConfigGrid(_logic.Read(new MessageInfoBindingModel
             {
                 PageNumber = pageNumber
-            });
-            if (list != null)
-            {
-                dataGridView.DataSource = list;
-                dataGridView.Columns[0].Visible = false;
-                dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dataGridView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                textBoxPage.Text = pageNumber.ToString();
-            }
+            }), dataGridView);
+            textBoxPage.Text = pageNumber.ToString();
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
@@ -113,6 +105,7 @@ namespace IceCreamShopView
                 form.ShowDialog();
                 LoadData();
             }
+            
         }
     }
 }

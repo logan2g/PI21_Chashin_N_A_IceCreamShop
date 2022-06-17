@@ -233,6 +233,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IceCreamShopDatabase.cs" />
+    <Compile Include="Implements\BackUpInfo.cs" />
     <Compile Include="Implements\ClientStorage.cs" />
     <Compile Include="Implements\ComponentStorage.cs" />
     <Compile Include="Implements\IceCreamStorage.cs" />
